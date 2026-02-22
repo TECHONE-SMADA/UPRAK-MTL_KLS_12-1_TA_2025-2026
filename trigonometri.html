@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Materi Aljabar</title>
+<title>Materi Trigonometri</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
 
@@ -45,8 +45,6 @@ header p{font-size:12px;letter-spacing:2px;}
 position:relative;
 min-height:100vh;
 padding:60px 80px;
-overflow:hidden;
-z-index:1;
 }
 
 /* LABEL */
@@ -78,32 +76,34 @@ text-decoration:none;
 font-size:16px;
 box-shadow:0 12px 28px rgba(0,0,0,0.3);
 transition:0.25s;
-z-index:998;
 }
 
 .exit img{width:56px;}
 
-.exit:hover{transform:translateY(-6px);}
-.exit:active{transform:scale(0.92);}
+.exit:hover{
+transform:translateY(-6px);
+}
 
-/* CONTENT */
+.exit:active{
+transform:scale(0.92);
+}
+
+/* CONTENT BOX */
 .content-box{
 background:rgba(255,255,255,0.25);
 backdrop-filter:blur(18px) saturate(180%);
 -webkit-backdrop-filter:blur(18px) saturate(180%);
 border-radius:40px;
 padding:60px;
-color:#000000;
+color:#000;
 margin-top:20px;
 min-height:420px;
-position:relative;
-overflow:hidden;
-box-shadow:0 20px 40px rgba(0,0,0,0.15), inset 0 1px 1px rgba(255,255,255,0.6);
+box-shadow:0 20px 40px rgba(0,0,0,0.15);
 border:1px solid rgba(255,255,255,0.35);
 }
 
 .content-box h2{
-font-size:60px;
+font-size:50px;
 margin-bottom:20px;
 }
 
@@ -113,23 +113,32 @@ margin-bottom:10px;
 }
 
 .content-box p{
-font-size:14px;
+font-size:15px;
 line-height:1.8;
 }
 
-.content-box iframe{
+/* RESPONSIVE VIDEO */
+.video-wrapper{
+position:relative;
 width:100%;
-height:315px;
-margin-top:10px;
-border-radius:15px;
+padding-bottom:56.25%;
+margin:25px 0;
 }
 
-/* NAV */
+.video-wrapper iframe{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+border-radius:20px;
+}
+
+/* NAV BUTTON */
 .nav-buttons{
 display:flex;
 justify-content:space-between;
-margin-top:30px;
-gap:20px;
+margin-top:40px;
 }
 
 .nav-buttons a{
@@ -143,18 +152,19 @@ font-size:22px;
 transition:0.2s;
 }
 
-.nav-buttons a:hover{transform:translateY(-5px);}
-.nav-buttons a:active{transform:scale(0.9);}
-
-/* RESPONSIVE */
-@media(max-width:768px){
-
-header{
-padding:0 20px;
+.nav-buttons a:hover{
+transform:translateY(-5px);
 }
 
+.nav-buttons a:active{
+transform:scale(0.9);
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+
 .hero{
-padding:30px 20px;
+padding:40px 20px;
 }
 
 .exit{
@@ -163,27 +173,22 @@ top:30px;
 }
 
 .content-box{
-padding:25px;
-border-radius:25px;
+padding:30px 20px;
 }
 
 .content-box h2{
-font-size:28px;
-}
-
-.content-box iframe{
-height:200px;
+font-size:32px;
 }
 
 .nav-buttons{
 flex-direction:column;
+gap:20px;
 }
 
 .nav-buttons a{
 width:100%;
 text-align:center;
 font-size:18px;
-padding:15px 0;
 }
 
 }
@@ -193,7 +198,7 @@ padding:15px 0;
 <body>
 
 <header>
-<img src="img/logo.png">
+<img src="img/logo.png" alt="Logo">
 <p>DESIGNED BY TECHONE</p>
 </header>
 
@@ -207,25 +212,33 @@ padding:15px 0;
 <div class="label">MATERI TRIGONOMETRI</div>
 
 <div class="content-box">
+
 <h2>TURUNAN FUNGSI TRIGONOMETRI</h2>
-<p>
 
 <h3>1. Konsep Fungsi Trigonometri</h3>
-Fungsi trigonometri meliputi sin x, cos x, tan x, cot x, sec x, dan csc x. Turunan berlaku dalam satuan radian.
-<br>
+<p>
+Fungsi trigonometri meliputi sin x, cos x, tan x, cot x, sec x, dan csc x.
+Turunan fungsi trigonometri berlaku dalam satuan radian.
+</p>
+
+<div class="video-wrapper">
 <iframe src="https://www.youtube.com/embed/f7spAZK8XU4" allowfullscreen></iframe>
+</div>
 
 <h3>2. Turunan Pertama Trigonometri</h3>
-(sin x)' = cos x
-<br>(cos x)' = -sin x
-<br>(tan x)' = sec^2 x
-<br>(cot x)' = -csc^2 x
-<br>(sec x)' = sec x tan x
-<br>(csc x)' = -csc x cot x
-<br>
-<iframe src="https://www.youtube.com/embed/ZmRxVsec6hI" allowfullscreen></iframe>
-
+<p>
+(sin x)' = cos x <br>
+(cos x)' = -sin x <br>
+(tan x)' = sec² x <br>
+(cot x)' = -csc² x <br>
+(sec x)' = sec x tan x <br>
+(csc x)' = -csc x cot x
 </p>
+
+<div class="video-wrapper">
+<iframe src="https://www.youtube.com/embed/ZmRxVsec6hI" allowfullscreen></iframe>
+</div>
+
 </div>
 
 <div class="nav-buttons">
