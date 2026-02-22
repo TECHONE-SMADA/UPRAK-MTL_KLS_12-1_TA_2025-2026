@@ -15,27 +15,23 @@ box-sizing:border-box;
 font-family:'Poppins',sans-serif;
 }
 
-body {
-    background-image: url("img/2.png");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center 90%; /* makin besar = makin turun */
-    background-attachment: fixed;
+body{
+background-image:url("img/2.png");
+background-repeat:no-repeat;
+background-size:cover;
+background-position:center 90%;
+background-attachment:fixed;
 }
 
-
-
-/* ===== HEADER (STICKY) ===== */
+/* HEADER */
 header{
 height:90px;
-   background:linear-gradient(90deg,#fbc29e,#ff6f00);
+background:linear-gradient(90deg,#fbc29e,#ff6f00);
 display:flex;
 align-items:center;
 justify-content:space-between;
 padding:0 60px;
 color:white;
-
-/* 🔥 STICKY */
 position:sticky;
 top:0;
 z-index:999;
@@ -64,7 +60,7 @@ font-weight:600;
 margin-bottom:20px;
 }
 
-/* EXIT CARD */
+/* EXIT */
 .exit{
 position:absolute;
 top:45px;
@@ -87,44 +83,23 @@ z-index:998;
 
 .exit img{width:56px;}
 
-.exit:hover{
-transform:translateY(-6px);
-box-shadow:0 20px 40px rgba(0,0,0,0.35);
-}
-
+.exit:hover{transform:translateY(-6px);}
 .exit:active{transform:scale(0.92);}
 
+/* CONTENT */
 .content-box{
-    background: rgba(255, 255, 255, 0.25); /* kaca putih transparan */
-    backdrop-filter: blur(18px) saturate(180%);
-    -webkit-backdrop-filter: blur(18px) saturate(180%);
-    
-    border-radius: 40px;
-    padding: 60px;
-    color: #000000;
-    margin-top: 20px;
-    min-height: 420px;
-    position: relative;
-    overflow: hidden;
-
-    /* efek kaca */
-    box-shadow: 
-        0 20px 40px rgba(0,0,0,0.15),
-        inset 0 1px 1px rgba(255,255,255,0.6);
-
-    border: 1px solid rgba(255,255,255,0.35);
-}
-
-.content-box::after{
-content:"";
-position:absolute;
-bottom:-80px;
-left:0;
-width:100%;
-height:200px;
-
-border-top-left-radius:60% 100%;
-border-top-right-radius:60% 100%;
+background:rgba(255,255,255,0.25);
+backdrop-filter:blur(18px) saturate(180%);
+-webkit-backdrop-filter:blur(18px) saturate(180%);
+border-radius:40px;
+padding:60px;
+color:#000000;
+margin-top:20px;
+min-height:420px;
+position:relative;
+overflow:hidden;
+box-shadow:0 20px 40px rgba(0,0,0,0.15), inset 0 1px 1px rgba(255,255,255,0.6);
+border:1px solid rgba(255,255,255,0.35);
 }
 
 .content-box h2{
@@ -132,9 +107,21 @@ font-size:60px;
 margin-bottom:20px;
 }
 
+.content-box h3{
+margin-top:25px;
+margin-bottom:10px;
+}
+
 .content-box p{
 font-size:14px;
 line-height:1.8;
+}
+
+.content-box iframe{
+width:100%;
+height:315px;
+margin-top:10px;
+border-radius:15px;
 }
 
 /* NAV */
@@ -142,6 +129,7 @@ line-height:1.8;
 display:flex;
 justify-content:space-between;
 margin-top:30px;
+gap:20px;
 }
 
 .nav-buttons a{
@@ -157,6 +145,48 @@ transition:0.2s;
 
 .nav-buttons a:hover{transform:translateY(-5px);}
 .nav-buttons a:active{transform:scale(0.9);}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+
+header{
+padding:0 20px;
+}
+
+.hero{
+padding:30px 20px;
+}
+
+.exit{
+right:20px;
+top:30px;
+}
+
+.content-box{
+padding:25px;
+border-radius:25px;
+}
+
+.content-box h2{
+font-size:28px;
+}
+
+.content-box iframe{
+height:200px;
+}
+
+.nav-buttons{
+flex-direction:column;
+}
+
+.nav-buttons a{
+width:100%;
+text-align:center;
+font-size:18px;
+padding:15px 0;
+}
+
+}
 </style>
 </head>
 
@@ -169,9 +199,6 @@ transition:0.2s;
 
 <section class="hero">
 
-
-
-<!-- EXIT CARD -->
 <a href="materi.html" class="exit">
 <img src="img/exit.png" alt="Exit">
 <span>EXIT</span>
@@ -183,26 +210,22 @@ transition:0.2s;
 <h2>TURUNAN FUNGSI TRIGONOMETRI</h2>
 <p>
 
-
-
-<H3>1. Konsep Fungsi Trigonometri</H3>
+<h3>1. Konsep Fungsi Trigonometri</h3>
 Fungsi trigonometri meliputi sin x, cos x, tan x, cot x, sec x, dan csc x. Turunan berlaku dalam satuan radian.
-<br><iframe width="560" height="315" src="https://www.youtube.com/embed/f7spAZK8XU4?si=xHXN9Vywf_MUKqo3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<br>
+<iframe src="https://www.youtube.com/embed/f7spAZK8XU4" allowfullscreen></iframe>
 
-<H3>2. Turunan Pertama Trigonometri</H3>
+<h3>2. Turunan Pertama Trigonometri</h3>
 (sin x)' = cos x
 <br>(cos x)' = -sin x
 <br>(tan x)' = sec^2 x
 <br>(cot x)' = -csc^2 x
 <br>(sec x)' = sec x tan x
 <br>(csc x)' = -csc x cot x
-<br><iframe width="560" height="315" src="https://www.youtube.com/embed/ZmRxVsec6hI?si=fIaCBapzUXlKrRie" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-
-
-
+<br>
+<iframe src="https://www.youtube.com/embed/ZmRxVsec6hI" allowfullscreen></iframe>
 
 </p>
-
 </div>
 
 <div class="nav-buttons">
