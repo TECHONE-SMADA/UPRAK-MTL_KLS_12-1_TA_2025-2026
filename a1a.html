@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UJIAN A1</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#fff;padding-bottom:200px}
+
+body {
+    background-image: url("img/quizz.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 1%; /* makin besar = makin turun */
+    background-attachment: fixed;
+}
+
+/* HEADER */
+header{
+height:90px;
+background:linear-gradient(135deg,#2a2e12,#e6d6b6);
+display:flex;align-items:center;justify-content:space-between;
+padding:0 40px;color:white;position:sticky;top:0;z-index:9999;
+box-shadow:0 6px 20px rgba(0,0,0,.2);
+}
+header img{width:80px}
+
+/* HERO */
+.hero{
+    padding-top:120px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+/* card putih */
+.hero h1{
+    font-size:40px;
+    font-weight:800;
+    color:#495021;
+
+    background:#ffffff;
+    padding:20px 50px;
+    border-radius:25px;
+
+    margin-bottom:30px;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.15);
+}
+
+/* MAIN */
+.main{display:flex;gap:40px;width:90%;max-width:1200px}
+.left{flex:2}
+.soal{
+    font-size:18px;
+    margin-bottom:20px;
+
+    /* CARD PUTIH */
+    background:#ffffff;
+    padding:25px 30px;
+    border-radius:25px;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.15);
+
+    line-height:1.6;
+}
+
+/* OPTIONS */
+.options{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.options button{
+    padding:15px;
+    border:none;
+    border-radius:40px;
+    background:#495021;
+
+    color:#ffffff;        /* ⬅️ PUTIH saat belum dijawab */
+    font-weight:600;
+    cursor:pointer;
+
+    transition:0.25s;
+}
+
+.options button:hover{
+    background:#5e6728;
+}
+
+/* saat dipilih */
+.options button.active{
+    background:#819133;
+    color:#e6d6b6;        /* krem */
+}
+
+/* RIGHT */
+.right{width:260px;display:flex;flex-direction:column;gap:20px}
+
+/* EXIT CARD */
+.exit-card{
+background:linear-gradient(135deg,#495021,#e6d6b6);
+border-radius:22px;padding:14px;
+display:flex;flex-direction:column;align-items:center;
+color:white;text-decoration:none;font-weight:600;
+box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+.exit-card img{width:34px}
+
+/* TIMER CARD */
+.timer-card{
+background:white;border-radius:26px;padding:22px 20px;
+text-align:center;font-weight:700;color:#495021;
+box-shadow:0 12px 30px rgba(0,0,0,0.18);
+}
+.timer-card span{font-size:32px;display:block;margin-top:6px}
+
+/* GRID */
+.number-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.number-grid div{
+height:50px;border-radius:25px;
+display:flex;align-items:center;justify-content:center;
+background:linear-gradient(135deg,#495021,#e6d6b6);
+cursor:pointer;font-weight:600;
+}
+.number-grid div.active{outline:3px solid #495021}
+.number-grid div.done{background:#495021;color:#e6d6b6}
+
+/* FOOTER */
+.footer{
+margin-top:30px;display:flex;gap:15px;
+width:90%;max-width:700px
+}
+.footer button,.footer a{
+flex:1;padding:15px;border-radius:40px;border:none;
+background:linear-gradient(135deg,#495021);
+color:white;font-weight:600;
+cursor:pointer;text-align:center;text-decoration:none;
+}
+.footer a{display:none}
+
+/* MODAL */
+.modal{
+position:fixed;inset:0;
+background:rgba(0,0,0,.45);
+display:none;align-items:center;justify-content:center;
+z-index:99999;
+}
+.modal-card{
+background:white;padding:30px;border-radius:30px;
+text-align:center;width:90%;max-width:360px;
+}
+.modal-card h3{color:#495021;margin-bottom:10px}
+.modal-card button{
+margin-top:20px;padding:12px 30px;
+border:none;border-radius:30px;
+background:#495021;color:#e6d6b6;font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<img src="img/logo.png">
+<p>DESIGNED BY TECHONE</p>
+</header>
+
+<section class="hero">
+<h1>UJIAN A1</h1>
+
+<div class="main">
+ 
+<div class="left">
+<div class="soal" id="soalText"></div>
+<div class="options" id="optionsBox"></div>
+</div>
+
+<div class="right">
+<a href="latihan.html" class="exit-card">
+<img src="img/exit.png"><span>EXIT</span>
+</a>
+
+<div class="timer-card">
+SISA WAKTU
+<span id="timer">20:00</span>
+</div>
+
+<div class="number-grid" id="grid"></div>
+</div>
+</div>
+
+<div class="footer">
+<button onclick="prevSoal()">PREVIOUS</button>
+<button onclick="nextSoal()">NEXT</button>
+<button onclick="kumpulkanJawaban()">KUMPULKAN</button>
+<a href="hasil_ujian.html" id="hasilBtn">LIHAT HASIL</a>
+</div>
+</section>
+
+<div class="modal" id="modal">
+<div class="modal-card">
+<h3 id="modalTitle"></h3>
+<p id="modalText"></p>
+<button onclick="closeModal()">OK</button>
+</div>
+</div>
+
+<script>
+// ==============================
+const examKey="a1a";
+localStorage.setItem("examKey",examKey);
+// ==============================
+
+const soalText=document.getElementById("soalText");
+const optionsBox=document.getElementById("optionsBox");
+const grid=document.getElementById("grid");
+const timerEl=document.getElementById("timer");
+const hasilBtn=document.getElementById("hasilBtn");
+const modal=document.getElementById("modal");
+const modalTitle=document.getElementById("modalTitle");
+const modalText=document.getElementById("modalText");
+
+let totalSoal=10;
+let currentSoal=0;
+let jawaban=new Array(totalSoal).fill(null);
+let sisaWaktu=20*60;
+let sudahKumpul=false;
+let timerInterval;
+
+// ==============================
+// SOAL + OPSI (INDEX 0–4)
+// ==============================
+const soalArray=[
+ {soal:"1. Diketahui fungsi f(x) = 4x + 7.Turunan pertama dari fungsi f(x) pada x = -4 adalah…",opsi:["A. -9","B. -4","C. 4","D. 16","E. 23"],benar:2},
+ {soal:"2. Jika f(x) = 5x² + 3x - 2, maka persamaan f'(x) adalah…",opsi:["A.) 10x + 3","B.) 10x + 1","C.) 5x + 5","D.) 5x + 3","E.) 5x + 1"],benar:0},
+ {soal:"3.Turunan pertama dari fungsi f(x) = (x² + 1)(3x - 2) adalah f'(x) =… ",opsi:["A.) x³ + 4x - 2","B.) 6x³ - 4x + 2","C.) 9x² + 4x - 3","D.) 9x² + 4x - 6","E.) 9x² - 4x + 3"],benar:4},
+ {soal:"4. Jika suatu proyek akan diselesaikan dalam x hari, maka biaya proyek per hari menjadi 3x+843/x−54 miliar rupiah. Biaya proyek minimum adalah…",opsi:["A. 420 miliar rupiah","B. 450 miliar rupiah","C. 500 miliar rupiah","D. 600 miliar rupiah","E. 800 miliar rupiah"],benar:3},
+ {soal:"5. Nilai minimum dan maksimum dari fungsi f(x) = x³ - 3x² + 10 pada interval -1 ≤ x ≤ 4 berturut-turut adalah…",opsi:["A. -4 dan 10","B. 8 dan 10","C. 6 dan 10","D. 6 dan 26","E. 4 dan 26"],benar:3},
+ {soal:"6. Koordinat titik balik maksimum grafik fungsi f(x) = 2x³ - 3x² - 36x + 2 adalah…",opsi:["A. (3, 79)","B. (3, -79)","C. (3, 46)","D. (-2, 48)","E. (-2, 46)"],benar:4},
+ {soal:"7. Persamaan garis singgung pada kurva y = x3 - 3x2 + 4x + 1 di titik yang berabsis 1 adalah ...",opsi:["A. x - y - 3 = 0","B. x - y - 2 = 0","C. x - y - 1 = 0","D. x - y + 2 = 0","E. x - y + 3 = 0"],benar:3},
+ {soal:"8. Sebuah tabung tertutup mempunyai volume 128π m3. Jika tabung tersebut dibuat sehingga luas seluruh permukaan sekecil mungkin, tinggi tabung tersebut adalah…",opsi:["A. 8 m","B.43 m","C. 6 m","D. 42 m","E. 4 m"],benar:0},
+ {soal:"9. Fungsi f(x) = 13x3−12x2−6x+2 tidak pernah turun pada interval…",opsi:["A. -2 ≤ x ≤ 3","B. -2 < x < 3","C. 2 < x < 3","D. x ≤ -2 atau x ≥ 3","E. x ≤ 3 atau x ≥ 2"],benar:3},
+ {soal:"10. Turunan pertama dari f(x) =(x^3+2x+4)^(1/2) adalah f’(x) =….",opsi:["A. 1/2(x^2 + 2x + 4)^(−1/2)","B. −1/2(x^2 + 2x + 4)^(−1/2)","C. (2X+2)(x^2 + 2x + 4)^(−1/2)","D. (X+1)(x^2 + 2x +4)^(−1/2)","E. (X+2)(x^2 + 2x + 4)^(−1/2)"],benar:3}
+];
+
+// GRID
+for(let i=0;i<totalSoal;i++){
+ const d=document.createElement("div");
+ d.innerText=i+1;
+ d.onclick=()=>{currentSoal=i;renderSoal();}
+ grid.appendChild(d);
+}
+
+// RENDER
+function renderSoal(){
+ soalText.innerText=soalArray[currentSoal].soal;
+ optionsBox.innerHTML="";
+ soalArray[currentSoal].opsi.forEach((opsi,i)=>{
+  const btn=document.createElement("button");
+  btn.innerText=opsi;
+  btn.onclick=()=>selectOption(i);
+  if(jawaban[currentSoal]===i) btn.classList.add("active");
+  optionsBox.appendChild(btn);
+ });
+ document.querySelectorAll(".number-grid div").forEach((d,i)=>{
+  d.classList.toggle("active",i===currentSoal);
+  d.classList.toggle("done",jawaban[i]!==null);
+ });
+}
+
+function selectOption(i){
+ jawaban[currentSoal]=i;
+ renderSoal();
+}
+
+function nextSoal(){if(currentSoal<totalSoal-1){currentSoal++;renderSoal();}}
+function prevSoal(){if(currentSoal>0){currentSoal--;renderSoal();}}
+
+function kumpulkanJawaban(auto=false){
+ if(sudahKumpul)return;
+ if(!auto && jawaban.includes(null)){
+  showModal("Belum Selesai","Semua soal wajib dijawab.");
+  return;
+ }
+ sudahKumpul=true;
+ clearInterval(timerInterval);
+ localStorage.setItem(examKey+"_jawaban",JSON.stringify(jawaban));
+ localStorage.setItem(examKey+"_soal",JSON.stringify(soalArray));
+ localStorage.setItem(examKey+"_waktu",(20*60-sisaWaktu));
+ showModal("Berhasil","Jawaban berhasil dikumpulkan.");
+ hasilBtn.style.display="block";
+}
+
+// TIMER
+timerInterval=setInterval(()=>{
+ if(sisaWaktu<=0){
+  clearInterval(timerInterval);
+  if(!sudahKumpul)kumpulkanJawaban(true);
+  return;
+ }
+ sisaWaktu--;
+ timerEl.innerText=
+ String(Math.floor(sisaWaktu/60)).padStart(2,"0")+":"+
+ String(sisaWaktu%60).padStart(2,"0");
+},1000);
+
+function showModal(t,m){
+ modalTitle.innerText=t;
+ modalText.innerText=m;
+ modal.style.display="flex";
+}
+function closeModal(){modal.style.display="none";}
+
+renderSoal();
+</script>
+
+</body>
+</html>

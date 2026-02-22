@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Turunan</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+body {
+    background-image: url("img/bgindexfix.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 15%;
+    background-attachment: fixed;
+}
+
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    background:rgba(255,255,255,0.2);
+    z-index:-1;
+}
+
+/* HEADER */
+header{
+    height:90px;
+    background:linear-gradient(90deg,#c8fcfe,#ffddca);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 60px;
+    color:rgb(24, 85, 209);
+    position:sticky;
+    top:0;
+    z-index:9999;
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+header img{width:70px;}
+header p{font-size:13px;letter-spacing:2px;}
+/* DROPDOWN TECHONE */
+.techone-dropdown{
+    position:relative;
+    cursor:pointer;
+}
+
+.techone-dropdown p{
+    font-size:13px;
+    letter-spacing:2px;
+    transition:0.3s;
+}
+
+.techone-dropdown p:hover{
+    transform:scale(1.05);
+}
+
+/* Menu */
+.dropdown-menu{
+    position:absolute;
+    top:35px;
+    right:0;
+    background:white;
+    border-radius:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    padding:10px 0;
+    width:180px;
+    opacity:0;
+    transform:translateY(-10px);
+    pointer-events:none;
+    transition:0.3s ease;
+}
+
+.dropdown-menu.active{
+    opacity:1;
+    transform:translateY(0);
+    pointer-events:auto;
+}
+
+.dropdown-menu a{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    padding:10px 15px;
+    text-decoration:none;
+    color:#1c5fb8;
+    font-size:14px;
+    transition:0.2s;
+}
+
+.dropdown-menu a img{
+    width:18px;
+}
+
+.dropdown-menu a:hover{
+    background:linear-gradient(90deg,#c8fcfe,#ffddca);
+}
+/* HERO */
+.hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding-top:120px;
+}
+
+.title-card{
+    background:linear-gradient(135deg,#ffffff,#e6f4ff);
+    padding:25px 70px;
+    border-radius:40px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.15);
+    margin-bottom:80px;
+}
+
+.title-card h1{
+    font-size:38px;
+    font-weight:500;
+    color:#0f3c73;
+}
+
+/* CARDS */
+.card-wrapper{
+    display:flex;
+    gap:120px;
+}
+
+.card{
+    width:340px;
+    height:380px;
+    border-radius:45px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:white;
+    font-size:24px;
+    font-weight:600;
+    text-decoration:none;
+    transition:0.25s;
+    box-shadow:0 20px 40px rgba(0,0,0,0.25);
+}
+
+.card img{
+    width:420px;
+    margin-bottom:25px;
+}
+
+.card:hover{
+    transform:translateY(-10px) scale(1.04);
+}
+
+.orange{background:linear-gradient(135deg,#ffcb9e,#ff7a18);}
+.purple{background:linear-gradient(135deg,#ddbcfb,#8e2de2);}
+
+/* SECTION */
+.section{
+    padding:140px 120px;
+}
+
+.box{
+    background:rgba(255,255,255,0.9);
+    backdrop-filter: blur(4px);
+    padding:60px;
+    border-radius:35px;
+    margin-bottom:80px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.1);
+    color:#1c5fb8;
+}
+
+.box h2{margin-bottom:20px;}
+.center{text-align:center;}
+
+/* PRESENTED */
+.presented-scroll{
+    max-height:180px;
+    overflow-y:auto;
+    padding-right:10px;
+}
+
+.presented-scroll::-webkit-scrollbar{
+    width:6px;
+}
+
+.presented-scroll::-webkit-scrollbar-thumb{
+    background:linear-gradient(180deg,#3B82F6,#60A5FA);
+    border-radius:10px;
+}
+
+.presented-scroll ol {
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    grid-auto-flow:column;
+    grid-template-rows:repeat(18, auto);
+    gap:0 20px;
+    list-style-position:inside;
+}
+
+.presented-scroll li{
+    margin-bottom:12px;
+    font-weight:500;
+}
+
+/* NAV */
+.bottom-nav{
+    position:fixed;              /* samakan seperti file latihan */
+    bottom:25px;                 /* jarak dari bawah */
+    left:50%;
+    transform:translateX(-50%);
+    background:linear-gradient(90deg,#c8fcfe,#ffddca); /* warna tetap */
+    width:420px;
+    max-width:95%;               /* supaya aman di HP */
+    height:65px;
+    border-radius:40px;
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    z-index:10;
+}
+
+.bottom-nav a{
+    color:rgb(24, 85, 209);
+    text-decoration:none;
+    font-size:14px;
+    padding:12px 20px;          /* samakan spacing */
+    border-radius:30px;
+    white-space:nowrap;         /* cegah teks turun */
+}
+
+.bottom-nav .active{
+    background:linear-gradient(90deg,#ffddca,#c8fcfe);
+    font-weight:600;
+}
+
+/* RESPONSIVE */
+@media(max-width:1000px){
+    .bottom-nav{
+        width:90%;
+    }
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:40px;
+    background:linear-gradient(90deg,#c8fcfe,#ffddca);
+    color:rgb(24, 85, 209);
+    letter-spacing:2px;
+}
+
+/* TABLET */
+@media(max-width:1000px){
+    .card-wrapper{
+        flex-direction:column;
+        gap:50px;
+        align-items:center;
+    }
+
+    .section{
+        padding:100px 30px;
+    }
+
+    .bottom-nav{
+        width:90%;
+    }
+}
+
+/* MOBILE FIX */
+@media(max-width:768px){
+
+header{
+    padding:0 20px;
+}
+
+header img{
+    width:50px;
+}
+
+header p{
+    font-size:11px;
+}
+
+.hero{
+    padding-top:100px;
+}
+
+.title-card{
+    padding:20px 25px;
+    margin-bottom:50px;
+}
+
+.title-card h1{
+    font-size:22px;
+    text-align:center;
+}
+
+.card-wrapper{
+    flex-direction:column;
+    align-items:center;
+    gap:40px;
+}
+
+.card{
+    width:90%;
+    max-width:340px;
+    height:auto;
+    padding:30px 20px;
+}
+
+.card img{
+    width:100%;
+    max-width:220px;
+    height:auto;
+}
+
+.section{
+    padding:80px 20px;
+}
+
+.box{
+    padding:30px 20px;
+}
+
+.presented-scroll ol{
+    grid-template-columns:1fr;
+    grid-template-rows:none;
+    grid-auto-flow:row;
+}
+
+/* NAV FULL WIDTH MOBILE */
+.bottom-nav{
+    position:fixed;
+    left:0;
+    transform:none;
+    width:100%;
+    height:60px;
+    border-radius:0;
+    margin:0;
+    bottom:0;
+}
+
+/* agar konten tidak tertutup nav */
+body{
+    background-attachment:scroll;
+    padding-bottom:80px;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="img/logo.png" alt="logo">
+
+    <div class="techone-dropdown">
+        <p onclick="toggleDropdown()">DESIGNED BY TECHONE ▾</p>
+
+        <div class="dropdown-menu" id="dropdownMenu">
+            <a href="https://www.instagram.com/techone.dabo?igsh=YTFlOGlzdjNkM3E2" target="_blank">
+                <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png">
+                Instagram
+            </a>
+
+            <a href="https://www.tiktok.com/@techone.ofc?_r=1&_t=ZS-948PsJsZXRS" target="_blank">
+                <img src="https://cdn-icons-png.flaticon.com/512/3046/3046121.png">
+                TikTok
+            </a>
+        </div>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="title-card">
+        <h1>Hari ini mau belajar apa?!</h1>
+    </div>
+
+    <div class="card-wrapper">
+        <a href="materi.html" class="card orange">
+            <img src="img/book.png">
+            Materi-Materi<br>Turunan
+        </a>
+
+        <a href="latihan.html" class="card purple">
+            <img src="img/paper.png">
+            Latihan Soal<br>Turunan
+        </a>
+    </div>
+</section>
+
+<section class="section">
+
+    <div class="box">
+        <h2>TUJUAN PEMBELAJARAN</h2>
+        <p>1. Dapat menjelaskan Konsep Turunan Fungsi<br>
+        2. Dapat menemukan Sifat2 Turunan fungsi Meliputi formula turunan fungsi Aljabar dan Trigonometri,Turunan hasil jumlah, selisih, kali dan bagi 2 fungsi, serta turunan komposisi Fungsi<br>
+        3. Menentukan Turunan fungsi aljabar dan trigonometri menggunakan sifat2 turunan<br>
+        4. mengidentifikasi konsep kemonotonan fungsi, titik dan nilai stasioner, serta jenis ekstrimnya <br>
+        5. menyelesaikan masalah sehari-hari dengan menerapkan konsep kemonotonan fungsi, titik dan nilai stasioner, serta jenis ekstrimnya </p>
+    </div>
+
+    <div class="box">
+         <h2>SEJARAH TURUNAN</h2>
+        <p>Lahir dari rasa penasaran manusia untuk membedah misteri perubahan sesaat, sejarah turunan merupakan sebuah drama intelektual yang bermula dari teknik "kelelahan" Archimedes di zaman Yunani Kuno, 
+            sebelum akhirnya meledak menjadi revolusi sains pada abad ke-17. Intrik terbesar dalam sejarah matematika ini memuncak ketika dua jenius, Sir Isaac Newton di Inggris dan Gottfried Wilhelm Leibniz di Jerman, secara terpisah menemukan kunci untuk "menghentikan waktu" secara matematis; Newton yang terobsesi dengan hukum gerak planet 
+            menggunakan pendekatan Fluxions untuk menghitung kecepatan gravitasi, sementara Leibniz yang visioner lebih fokus pada keindahan geometri garis singgung kurva. Meskipun perseteruan sengit sempat pecah mengenai siapa yang lebih dulu menemukan konsep ini, dunia justru berutang budi pada keduanya karena notasi
+             <img src="img/sejarah.png" alt="" style="width: 27px;">
+             milik Leibniz yang elegan serta aplikasi fisika Newton yang kuat menjadi fondasi teknologi modern. 
+            Evolusi ini baru mencapai titik kesempurnaan rigorus pada abad ke-19 melalui tangan dingin Augustin-Louis Cauchy dan Karl Weierstrass, yang berhasil mendefinisikan konsep Limit secara presisi, mengubah teka-teki kuno tentang perubahan menjadi bahasa universal yang kini memungkinkan kita menghitung segala hal, mulai dari laju pertumbuhan ekonomi hingga lintasan roket menuju ruang angkasa.</p>
+    </div>
+
+    <div class="box">
+        <h1>PRESENTED BY</h1>
+        <div class="presented-scroll">
+            <ol>
+                <li>AMELIA - PROJECT LEADER</li>
+                <li>RIFANI - WEBSITE CREATOR</li>
+                <li>TANGGUH - WEBSITE CREATOR</li>
+                <li>HAFIIDZ - WEBSITE CREATOR</li>
+                <li>CITRA - QUIZMASTERS</li>
+                <li>ABHITAH - QUIZMASTERS</li>
+                <li>ZHAFIR - QUIZMASTERS</li>
+                <li>CACA - QUIZMASTERS</li>
+                <li>SABILA - QUIZMASTERS</li>
+                <li>BIMA - QUIZMASTERS</li>
+                <li>NIZAR - QUIZMASTERS</li>
+                <li>RIVALDO - QUIZMASTERS</li>
+                <li>BASKORO - QUIZMASTERS</li>
+                <li>AMRINA - QUIZMASTERS</li>
+                <li>DANU - QUIZMASTERS</li>
+                <li>HAMAM - MEMBERS</li>
+                <li>ZAHID - VIDEO EDUCATOR</li>
+                <li>AIKO - VIDEO EDUCATOR</li>
+                <li>ARLIDA - VIDEO EDUCATOR</li>
+                <li>SYIFA - VIDEO EDUCATOR</li>
+                <li>TITO - VIDEO EDUCATOR</li>
+                <li>DAFFA - VIDEO EDUCATOR</li>
+                <li>VALEN - VIDEO EDUCATOR</li>
+                <li>CINDY - VIDEO EDUCATOR</li>
+                <li>ABEL - CONTENT DEVELOPER</li>
+                <li>NANDHITA - CONTENT DEVELOPER</li>
+                <li>SANDHI - CONTENT DEVELOPER</li>
+                <li>NADIA - CONTENT DEVELOPER</li>
+                <li>RAMA - CONTENT DEVELOPER</li>
+                <li>IKHLIL - CONTENT DEVELOPER</li>
+                <li>DHANI - CONTENT DEVELOPER</li>
+                <li>NABILA - EDITOR VIDEO</li>
+                <li>NIA - EDITOR VIDEO</li>
+                <li>IRFINA - EDITOR VIDEO</li>
+                <li>SYAHRIF - EDITOR VIDEO</li>
+                <li>BANGKIT - EDITOR VIDEO</li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="box center">
+        <h2>QUOTES</h2>
+        <h3><i>"Mengerjakan turunan itu gampang, yang susah itu menerima kenyataan kalau hasilnya tidak sesuai dengan kunci jawaban."</i></h3>
+    </div>
+
+</section>
+
+<div class="bottom-nav">
+    <a href="materi.html">Materi</a>
+    <a href="index.html" class="active">Halaman Utama</a>
+    <a href="latihan.html">Latsol</a>
+</div>
+
+<footer>
+    Shine Bright Stay High ✨
+</footer>
+<script>
+function toggleDropdown(){
+    document.getElementById("dropdownMenu").classList.toggle("active");
+}
+
+// supaya klik di luar dropdown otomatis menutup
+document.addEventListener("click", function(event){
+    const dropdown = document.querySelector(".techone-dropdown");
+    const menu = document.getElementById("dropdownMenu");
+
+    if(!dropdown.contains(event.target)){
+        menu.classList.remove("active");
+    }
+});
+</script>
+</body>
+</html>

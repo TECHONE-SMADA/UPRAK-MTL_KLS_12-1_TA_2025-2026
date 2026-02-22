@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aljabar</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background-image:url("img/bgtrigono.png");
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center 90%;
+    background-attachment:fixed;
+    overflow-x:hidden;
+}
+
+/* ===== HEADER ===== */
+header{
+    height:90px;
+    background:linear-gradient(90deg,#c02c1e,#3d2425);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 60px;
+    color:white;
+    position:sticky;
+    top:0;
+    z-index:9999;
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+header img{
+    width:80px;
+    max-width:100%;
+}
+
+header p{
+    font-size:12px;
+    letter-spacing:2px;
+}
+
+/* ===== HERO ===== */
+.hero{
+    min-height:calc(100vh - 100px);
+    padding:140px 20px 120px 20px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.hero h1{
+    font-family:'Poppins','Comic Neue','Baloo 2','cursive';
+    font-size:100px;
+    font-weight:800;
+    margin-bottom:100px;
+    display:inline-block;
+    text-align:center;
+
+    background:linear-gradient(
+        180deg,
+        #ffffff 0%,
+        #f3e6ff 45%,
+        #d8b4ff 100%
+    );
+
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+
+    text-shadow:
+        0 0 8px rgba(255,255,255,0.9),
+        0 6px 14px rgba(180,120,255,0.4);
+
+    animation:bubbleFade 2.8s ease-in-out infinite;
+}
+
+@keyframes bubbleFade{
+    0%,100%{
+        opacity:1;
+        transform:scale(1);
+    }
+    50%{
+        opacity:0.85;
+        transform:scale(1.03);
+    }
+}
+
+/* ===== BUTTON GRID ===== */
+.menu-wrapper{
+    display:flex;
+    gap:80px;
+    margin-bottom:80px;
+    flex-wrap:wrap;
+    justify-content:center;
+    width:100%;
+    max-width:1000px;
+}
+
+.menu-btn{
+    width:320px;
+    height:140px;
+
+    background:linear-gradient(
+        135deg,
+        rgba(226,41,30,0.35),
+        rgba(180,25,20,0.22)
+    );
+
+    backdrop-filter:blur(8px) saturate(150%);
+    -webkit-backdrop-filter:blur(8px) saturate(150%);
+
+    border-radius:50px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    font-size:42px;
+    font-weight:800;
+    color:#ffffff;
+    text-decoration:none;
+
+    transition:0.3s ease;
+
+    box-shadow:
+        0 18px 40px rgba(226,41,30,0.5),
+        inset 0 0 18px rgba(255,120,120,0.35),
+        inset 0 1px 1px rgba(255,255,255,0.6);
+
+    border:6px solid rgba(226,41,30,0.95);
+
+    position:relative;
+    overflow:hidden;
+    max-width:100%;
+}
+
+.menu-btn::before{
+    content:"";
+    position:absolute;
+    top:-50%;
+    left:-30%;
+    width:160%;
+    height:160%;
+    background:radial-gradient(
+        circle at top left,
+        rgba(255,255,255,0.55),
+        rgba(255,140,140,0.35),
+        transparent 65%
+    );
+    pointer-events:none;
+}
+
+.menu-btn:hover{
+    transform:translateY(-10px) scale(1.05);
+    box-shadow:
+        0 30px 65px rgba(226,41,30,0.7),
+        inset 0 0 30px rgba(255,160,160,0.6),
+        inset 0 1px 1px rgba(255,255,255,0.8);
+}
+
+.menu-btn:active{
+    transform:scale(0.94);
+}
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav{
+    position:fixed;
+    bottom:25px;
+    left:50%;
+    transform:translateX(-50%);
+    background:linear-gradient(90deg,#c02c1e,#3d2425);
+    width:420px;
+    max-width:95%;
+    height:65px;
+    border-radius:40px;
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    z-index:1000;
+}
+
+.bottom-nav a{
+    text-decoration:none;
+    color:white;
+    font-size:14px;
+    padding:12px 20px;
+    border-radius:30px;
+    white-space:nowrap;
+}
+
+.bottom-nav .active{
+    background:rgba(0,0,0,0.25);
+    font-weight:600;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1000px){
+
+    .hero h1{
+        font-size:70px;
+        margin-bottom:70px;
+    }
+
+    .menu-wrapper{
+        gap:40px;
+    }
+
+    .menu-btn{
+        width:100%;
+        max-width:500px;
+        font-size:34px;
+        height:120px;
+    }
+
+    .bottom-nav{
+        width:95%;
+    }
+}
+
+@media(max-width:500px){
+
+    header{
+        padding:0 20px;
+    }
+
+    .hero{
+        padding-top:120px;
+    }
+
+    .hero h1{
+        font-size:48px;
+        margin-bottom:50px;
+    }
+
+    .menu-btn{
+        font-size:26px;
+        height:100px;
+        border-radius:35px;
+    }
+
+    .bottom-nav{
+        height:60px;
+    }
+
+    .bottom-nav a{
+        font-size:12px;
+        padding:10px 14px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="img/logo.png">
+    <p>DESIGNED BY TECHONE</p>
+</header>
+
+<section class="hero">
+    <h1>TRIGONOMETRI</h1>
+
+    <div class="menu-wrapper">
+        <a href="a1t.html" class="menu-btn">T.1</a>
+        <a href="a2t.html" class="menu-btn">T.2</a>
+        <a href="a3t.html" class="menu-btn">T.3</a>
+    </div>
+</section>
+
+<div class="bottom-nav">
+    <a href="materi.html">Materi</a>
+    <a href="index.html">Halaman Utama</a>
+    <a href="latihan.html" class="active">Latsol</a>
+</div>
+
+</body>
+</html>

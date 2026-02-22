@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UJIAN T3</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#fff;padding-bottom:200px}
+
+body {
+    background-image: url("img/tri.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 1%; /* makin besar = makin turun */
+    background-attachment: fixed;
+}
+
+/* HEADER */
+header{
+height:90px;
+background:linear-gradient(135deg,#573b24,#e6d6b6);
+display:flex;align-items:center;justify-content:space-between;
+padding:0 40px;color:white;position:sticky;top:0;z-index:9999;
+box-shadow:0 6px 20px rgba(0,0,0,.2);
+}
+header img{width:80px}
+
+/* HERO */
+.hero{
+    padding-top:120px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+/* card putih */
+.hero h1{
+    font-size:40px;
+    font-weight:800;
+    color:#330a0a;
+
+    background:#ffffff;
+    padding:20px 50px;
+    border-radius:25px;
+
+    margin-bottom:30px;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.15);
+}
+
+/* MAIN */
+.main{display:flex;gap:40px;width:90%;max-width:1200px}
+.left{flex:2}
+.soal{
+    font-size:18px;
+    margin-bottom:20px;
+
+    /* CARD PUTIH */
+    background:#ffffff;
+    padding:25px 30px;
+    border-radius:25px;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.15);
+
+    line-height:1.6;
+}
+
+/* OPTIONS */
+.options{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.options button{
+    padding:15px;
+    border:none;
+    border-radius:40px;
+    background:#573b24;
+
+    color:#ffffff;        /* ⬅️ PUTIH saat belum dijawab */
+    font-weight:600;
+    cursor:pointer;
+
+    transition:0.25s;
+}
+
+.options button:hover{
+    background:#330a0a;
+}
+
+/* saat dipilih */
+.options button.active{
+    background:#330a0a;
+    color:#e6d6b6;        /* krem */
+}
+
+/* RIGHT */
+.right{width:260px;display:flex;flex-direction:column;gap:20px}
+
+/* EXIT CARD */
+.exit-card{
+background:linear-gradient(135deg,#330a0a,#e6d6b6);
+border-radius:22px;padding:14px;
+display:flex;flex-direction:column;align-items:center;
+color:white;text-decoration:none;font-weight:600;
+box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+.exit-card img{width:34px}
+
+/* TIMER CARD */
+.timer-card{
+background:white;border-radius:26px;padding:22px 20px;
+text-align:center;font-weight:700;color:#330a0a;
+box-shadow:0 12px 30px rgba(0,0,0,0.18);
+}
+.timer-card span{font-size:32px;display:block;margin-top:6px}
+
+/* GRID */
+.number-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.number-grid div{
+height:50px;border-radius:25px;
+display:flex;align-items:center;justify-content:center;
+background:linear-gradient(135deg,#330a0a,#e6d6b6);
+cursor:pointer;font-weight:600;
+}
+.number-grid div.active{outline:3px solid #495021}
+.number-grid div.done{background:#330a0a;color:#e6d6b6}
+
+/* FOOTER */
+.footer{
+margin-top:30px;display:flex;gap:15px;
+width:90%;max-width:700px
+}
+.footer button,.footer a{
+flex:1;padding:15px;border-radius:40px;border:none;
+background:linear-gradient(135deg,#330a0a);
+color:white;font-weight:600;
+cursor:pointer;text-align:center;text-decoration:none;
+}
+.footer a{display:none}
+
+/* MODAL */
+.modal{
+position:fixed;inset:0;
+background:rgba(0,0,0,.45);
+display:none;align-items:center;justify-content:center;
+z-index:99999;
+}
+.modal-card{
+background:white;padding:30px;border-radius:30px;
+text-align:center;width:90%;max-width:360px;
+}
+.modal-card h3{color:#330a0a;margin-bottom:10px}
+.modal-card button{
+margin-top:20px;padding:12px 30px;
+border:none;border-radius:30px;
+background:#330a0a;color:#e6d6b6;font-weight:600;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<img src="img/logo.png">
+<p>DESIGNED BY TECHONE</p>
+</header>
+
+<section class="hero">
+<h1>UJIAN T3</h1>
+
+<div class="main">
+
+<div class="left">
+<div class="soal" id="soalText"></div>
+<div class="options" id="optionsBox"></div>
+</div>
+
+<div class="right">
+<a href="latihan.html" class="exit-card">
+<img src="img/exit.png"><span>EXIT</span>
+</a>
+
+<div class="timer-card">
+SISA WAKTU
+<span id="timer">20:00</span>
+</div>
+
+<div class="number-grid" id="grid"></div>
+</div>
+</div>
+
+<div class="footer">
+<button onclick="prevSoal()">PREVIOUS</button>
+<button onclick="nextSoal()">NEXT</button>
+<button onclick="kumpulkanJawaban()">KUMPULKAN</button>
+<a href="hasil_ujian.html" id="hasilBtn">LIHAT HASIL</a>
+</div>
+</section>
+
+<div class="modal" id="modal">
+<div class="modal-card">
+<h3 id="modalTitle"></h3>
+<p id="modalText"></p>
+<button onclick="closeModal()">OK</button>
+</div>
+</div>
+
+<script>
+// ==============================
+const examKey="a3t";
+localStorage.setItem("examKey",examKey);
+// ==============================
+
+const soalText=document.getElementById("soalText");
+const optionsBox=document.getElementById("optionsBox");
+const grid=document.getElementById("grid");
+const timerEl=document.getElementById("timer");
+const hasilBtn=document.getElementById("hasilBtn");
+const modal=document.getElementById("modal");
+const modalTitle=document.getElementById("modalTitle");
+const modalText=document.getElementById("modalText");
+
+let totalSoal=10;
+let currentSoal=0;
+let jawaban=new Array(totalSoal).fill(null);
+let sisaWaktu=20*60;
+let sudahKumpul=false;
+let timerInterval;
+
+// ==============================
+// SOAL + OPSI (INDEX 0–4)
+// ==============================
+const soalArray=[
+ {soal:"Turunan pertama dari f(x) = 3sin x adalah ...",opsi:["A. 3sin x","B. -3cos x","C. 3cos x","D. -3sin x","E. cos x"],benar:2},
+ {soal:"Turunan dari f(x) = 5cos x adalah ...",opsi:["A. 5sin x","B. -5sin x","C. -5cos x","D. 5cos x","E. sin x"],benar:1},
+ {soal:"Turunan dari f(x) = x sin x adalah ...",opsi:["A. sin x","B. x cos x","C. sin x + x cos x","D. cos x","E. x sin x"],benar:2},
+ {soal:"Turunan dari f(x) = 2sin(3x) adalah ...",opsi:["A. -6cos(3x)","B. 2cos(3x)","C. 6sin(3x)","D. 6cos(3x)","E. -6sin(3x)"],benar:3},
+ {soal:"Turunan dari f(x) = tan(2x) adalah ...",opsi:["A. sec²(2x)","B. 2sec²(2x)","C. sec(2x)","D. 2tan(2x)","E. -2sec²(2x)"],benar:1},
+ {soal:"Sebuah partikel bergerak dengan posisi s(t) = 4sin(2t). Tentukan kecepatan partikel tersebut.",opsi:["A. 4cos(2t)","B. 8cos(2t)","C. 8sin(2t)","D. -8cos(2t)","E. -8sin(2t)"],benar:1},
+ {soal:"Gelombang air dinyatakan dengan y = 6cos(3x). Tentukan gradien fungsi tersebut.",opsi:["A. -18cos(3x)","B. 18sin(3x)","C. -6sin(3x)","D. 18cos(3x)","E. -18sin(3x)"],benar:4},
+ {soal:"Turunan dari f(x) = sec x adalah ...",opsi:["A. sec x tan x","B. tan x","C. sec² x","D. -sec x tan x","E. -tan x"],benar:0},
+ {soal:"Turunan dari f(x) = sin x / x adalah ...",opsi:["A. sin x / x²","B. (sin x - x cos x)/x²","C. cos x / x","D. (x cos x - sin x)/x²","E. x cos x"],benar:3},
+ {soal:"Sebuah sudut θ berubah terhadap waktu dengan fungsi θ(t) = 5tan(t). Tentukan laju perubahan sudut tersebut.",opsi:["A. 5sec² t","B. sec² t","C. 5tan t","D. -5sec² t","E. -sec² t"],benar:0}
+];
+
+// GRID
+for(let i=0;i<totalSoal;i++){
+ const d=document.createElement("div");
+ d.innerText=i+1;
+ d.onclick=()=>{currentSoal=i;renderSoal();}
+ grid.appendChild(d);
+}
+
+// RENDER
+function renderSoal(){
+ soalText.innerText=soalArray[currentSoal].soal;
+ optionsBox.innerHTML="";
+ soalArray[currentSoal].opsi.forEach((opsi,i)=>{
+  const btn=document.createElement("button");
+  btn.innerText=opsi;
+  btn.onclick=()=>selectOption(i);
+  if(jawaban[currentSoal]===i) btn.classList.add("active");
+  optionsBox.appendChild(btn);
+ });
+ document.querySelectorAll(".number-grid div").forEach((d,i)=>{
+  d.classList.toggle("active",i===currentSoal);
+  d.classList.toggle("done",jawaban[i]!==null);
+ });
+}
+
+function selectOption(i){
+ jawaban[currentSoal]=i;
+ renderSoal();
+}
+
+function nextSoal(){if(currentSoal<totalSoal-1){currentSoal++;renderSoal();}}
+function prevSoal(){if(currentSoal>0){currentSoal--;renderSoal();}}
+
+function kumpulkanJawaban(auto=false){
+ if(sudahKumpul)return;
+ if(!auto && jawaban.includes(null)){
+  showModal("Belum Selesai","Semua soal wajib dijawab.");
+  return;
+ }
+ sudahKumpul=true;
+ clearInterval(timerInterval);
+ localStorage.setItem(examKey+"_jawaban",JSON.stringify(jawaban));
+ localStorage.setItem(examKey+"_soal",JSON.stringify(soalArray));
+ localStorage.setItem(examKey+"_waktu",(20*60-sisaWaktu));
+ showModal("Berhasil","Jawaban berhasil dikumpulkan.");
+ hasilBtn.style.display="block";
+}
+
+// TIMER
+timerInterval=setInterval(()=>{
+ if(sisaWaktu<=0){
+  clearInterval(timerInterval);
+  if(!sudahKumpul)kumpulkanJawaban(true);
+  return;
+ }
+ sisaWaktu--;
+ timerEl.innerText=
+ String(Math.floor(sisaWaktu/60)).padStart(2,"0")+":"+
+ String(sisaWaktu%60).padStart(2,"0");
+},1000);
+
+function showModal(t,m){
+ modalTitle.innerText=t;
+ modalText.innerText=m;
+ modal.style.display="flex";
+}
+function closeModal(){modal.style.display="none";}
+
+renderSoal();
+</script>
+
+</body>
+</html>

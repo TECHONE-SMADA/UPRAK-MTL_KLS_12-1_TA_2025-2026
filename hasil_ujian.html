@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hasil Ujian</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background-image:url("img/tamat2.png");
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position:100% 100%; /* ← geser ke kiri dikit */
+    background-attachment:fixed;
+    padding-bottom:140px;
+    overflow-x:hidden;
+}
+
+/* HEADER */
+header{
+    height:90px;
+    background:linear-gradient(90deg,#f1deb5,#b86b2f);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 40px;
+    color:#000;
+    box-shadow:0 6px 20px rgba(0,0,0,.2);
+}
+
+header h2{
+    font-weight:800;
+    letter-spacing:2px;
+}
+
+.exit{
+    cursor:pointer;
+    font-weight:600;
+}
+
+/* HERO */
+.hero{
+    text-align:center;
+    padding:300px 20px 60px;
+}
+
+.hero h1{
+    font-size:28px;
+    margin-bottom:50px;
+    font-weight:700;
+    color:#000;
+}
+
+/* RESULT */
+.result{
+    display:flex;
+    justify-content:center;
+    gap:100px;
+    margin-bottom:40px;
+}
+
+/* CARD PUTIH */
+.result-item{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    background:#ffffff;
+    padding:20px 28px;
+    border-radius:30px;
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+}
+
+.result-item span{
+    font-size:24px;
+    font-weight:700;
+    color:#000;
+}
+
+/* CIRCLE */
+.circle{
+    width:80px;
+    height:80px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:40px;
+    color:white;
+    box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+
+.green{background:#3ac569;}
+.red{background:#e74c3c;}
+
+/* TIMER CARD */
+.time{
+    display:inline-block;
+    font-size:32px;
+    font-weight:800;
+    color:#000;
+    background:linear-gradient(90deg,#f1deb5,#b86b2f);
+    padding:18px 45px;
+    border-radius:40px;
+    box-shadow:0 12px 28px rgba(0,0,0,.25);
+    margin-bottom:60px;
+}
+
+/* BUTTON AREA */
+.buttons{
+    display:flex;
+    justify-content:center;
+    gap:40px;
+}
+
+/* BUTTON HEADER COLOR */
+.btn{
+    padding:16px 48px;
+    border:none;
+    border-radius:40px;
+    background:linear-gradient(90deg,#f1deb5,#b86b2f);
+    color:#000;
+    font-weight:800;
+    font-size:16px;
+    cursor:pointer;
+    transition:.3s;
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+.btn:hover{
+    transform:translateY(-4px) scale(1.05);
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+    .result{
+        flex-direction:column;
+        gap:40px;
+    }
+    .buttons{
+        flex-direction:column;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h2>UJIAN A.1</h2>
+<div class="exit" onclick="exitUjian()"><h1>EXIT</h1></div>
+</header>
+
+<section class="hero">
+
+
+<div class="result">
+<div class="result-item">
+<div class="circle green">✓</div>
+<span id="benarText">0 SOAL</span>
+</div>
+
+<div class="result-item">
+<div class="circle red">✕</div>
+<span id="salahText">0 SOAL</span>
+</div>
+</div>
+
+<div class="time">
+TIME: <span id="timeText">00:00:00</span>
+</div>
+
+<div class="buttons">
+<button class="btn" onclick="ulangUjian()">REPEAT ULANGAN</button>
+<button class="btn" onclick="kePembahasan()">PEMBAHASAN</button>
+</div>
+</section>
+
+<script>
+// ===============================================
+// JANGAN DIUBAH
+// ambil examKey dari file ujian (a1a, a2a, dll)
+// ===============================================
+const examKey = localStorage.getItem("examKey");
+
+if(!examKey){
+  alert("Data ujian tidak ditemukan");
+  window.location.href = "latihan.html";
+}
+
+// ===============================================
+// JANGAN DIUBAH
+// ===============================================
+const jawabanUser = JSON.parse(localStorage.getItem(examKey + "_jawaban")) || [];
+const soalData = JSON.parse(localStorage.getItem(examKey + "_soal")) || [];
+const waktuDetik = parseInt(localStorage.getItem(examKey + "_waktu")) || 0;
+
+let benar = 0;
+
+// ===============================================
+// HITUNG BENAR / SALAH
+// ===============================================
+for(let i=0;i<soalData.length;i++){
+  if(jawabanUser[i] === soalData[i]?.benar){
+    benar++;
+  }
+}
+
+const salah = soalData.length - benar;
+
+// ===============================================
+// TAMPILKAN
+// ===============================================
+document.getElementById("benarText").innerText = benar + " SOAL";
+document.getElementById("salahText").innerText = salah + " SOAL";
+
+function formatTime(sec){
+  let h=Math.floor(sec/3600);
+  let m=Math.floor((sec%3600)/60);
+  let s=sec%60;
+  return `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+}
+
+document.getElementById("timeText").innerText = formatTime(waktuDetik);
+
+// ===============================================
+// BUTTON
+// ===============================================
+function ulangUjian(){
+  // === GANTI INI JIKA NAMA FILE BERBEDA ===
+  window.location.href = examKey + ".html";
+}
+
+function exitUjian(){
+  if(confirm("Yakin ingin keluar?")){
+    localStorage.clear();
+    window.location.href = "latihan.html";
+  }
+}
+
+function kePembahasan(){
+  // === GANTI INI JIKA PERLU ===
+  window.location.href = "pembahasan.html?exam=" + examKey;
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pembahasan Ujian</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#f1f1f1}
+
+/* HEADER */
+header{
+height:90px;
+background:linear-gradient(90deg,#e4576e,#8e5bd9);
+color:white;
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 40px;
+font-weight:800;
+font-size:22px;
+}
+header img{width:80px}
+
+/* LAYOUT */
+.container{display:flex;gap:40px;padding:40px}
+
+/* LEFT */
+.left{flex:3;position:relative;padding-bottom:80px}
+.soal{font-size:16px;margin-bottom:20px;color:#333}
+
+/* OPTIONS */
+.options{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+margin-bottom:25px;
+}
+.option{
+padding:15px 20px;
+border-radius:30px;
+font-weight:600
+}
+.option.correct{background:#2ecc71;color:white}
+.option.wrong{background:#e74c3c;color:white}
+.option.neutral{background:#e0e0e0;color:#333}
+
+/* PEMBAHASAN */
+.bahas{
+background:white;
+padding:25px;
+border-radius:25px;
+line-height:1.6;
+}
+
+/* FOOTER NAV */
+.footerNav{
+position:absolute;
+bottom:0;left:0;right:0;
+display:flex;
+gap:20px;
+}
+.footerNav button{
+flex:1;
+padding:15px;
+border:none;
+border-radius:40px;
+font-weight:800;
+cursor:pointer;
+background:#ddd;
+}
+
+/* RIGHT */
+.right{flex:1;display:flex;flex-direction:column;gap:20px}
+
+/* EXIT CARD */
+.exit-card{
+background:linear-gradient(90deg,#e4576e,#8e5bd9);
+border-radius:25px;
+padding:18px 10px;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:8px;
+color:white;
+font-weight:700;
+cursor:pointer;
+box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+.exit-card img{width:34px}
+
+/* NAV GRID */
+.navGrid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:15px;
+}
+.navItem{
+padding:14px;
+border-radius:20px;
+background:#ddd;
+text-align:center;
+font-weight:600;
+cursor:pointer;
+}
+.navItem.active{background:#8e5bd9;color:white}
+</style>
+</head>
+
+<body>
+
+<header>
+<span id="judulUjian">PEMBAHASAN</span>
+<img src="img/logo.png">
+</header>
+
+<div class="container">
+
+<div class="left">
+<div id="soalBox"></div>
+
+<div class="footerNav">
+<button onclick="prevSoal()">PREVIOUS</button>
+<button onclick="nextSoal()">NEXT</button>
+</div>
+</div>
+
+<div class="right">
+
+<div class="exit-card" onclick="window.location.href='latihan.html'">
+<img src="img/exit.png">
+<span>EXIT</span>
+</div>
+
+<div class="navGrid" id="navBox"></div>
+
+</div>
+</div>
+
+<script>
+// ==================================================
+// AMBIL EXAM KEY (a1a, a2t, a3u, dll)
+// ==================================================
+const examKey = localStorage.getItem("examKey");
+if(!examKey){
+  alert("Data ujian tidak ditemukan");
+  window.location.href="latihan.html";
+}
+
+// ==================================================
+// JUDUL OTOMATIS
+// ==================================================
+const level = examKey.match(/\d+/)?.[0] || "";
+const tipe = examKey.slice(-1);
+const tipeMap = { a:"UJIAN", t:"TRY OUT", u:"ULANGAN" };
+
+document.getElementById("judulUjian").innerText =
+`${tipeMap[tipe] ?? "UJIAN"} ${level} — PEMBAHASAN`;
+
+// ==================================================
+// AMBIL DATA JAWABAN & SOAL
+// ==================================================
+const jawabanUser = JSON.parse(localStorage.getItem(examKey+"_jawaban")) || [];
+const soalData = JSON.parse(localStorage.getItem(examKey+"_soal")) || [];
+
+let index = 0;
+
+  // ==================================================
+      // 🔥 PEMBAHASAN PER FILE (EDIT TITIK-TITIK SAJA)
+      // ==================================================
+      const pembahasanMap = {
+        a1a: [
+          /** SOAL 1 */ "1. Turunan pertama dari f(x) = 4x + 7 pada x = -4 <br> Langkah: f'(x) = 4.<br>Penjelasan: Karena turunan dari 4x adalah 4 dan turunan konstanta 7 adalah 0, maka f'(x) bernilai tetap 4 untuk berapapun nilai x.<br> Jawaban: C. 4 ",
+          /** SOAL 2 */ "2. Persamaan f'(x) jika f(x) = 5x2+3x−2 <br> Langkah: f'(x) = 2⋅5x2−1+1⋅3x1−1 <br> Hasil: f'(x) = 10x + 3. <br> Jawaban: A. 10x + 3",
+          /** SOAL 3 */ "3. Turunan pertama dari fx=x2+13x−2 <br> Langkah: Kalikan terlebih dahulu: fx=3x3−2x2+3x−2. <br> Turunan: f'(x) =9x2−4x+3. <br> Jawaban: E.9x2−4x+3 ",
+          /** SOAL 4 */ "4. Biaya proyek minimum <br> Fungsi Biaya Total (B): Bx=x⋅3x+843x−54=3x2−54x+843. <br> Syarat Minimum (B' = 0): 6x − 54 = 0 →x = 9 hari. <br> Biaya: B9=392−549+843=243−486+843=600. <br>Jawaban: D. 600 miliar rupiah ",
+          /** SOAL 5 */ "5. Nilai minimum dan maksimum fx=x3−3x2+10 pada interval−1≤x≤4 <br> Titik Stasioner (f'=0): 3x2−6x=0→3xx−2=0→x=0,x=2. <br> Uji Nilai: f−1=6;f0=10;f2=6;f4=26.<br> Jawaban: D. 6 dan 26 ",
+          /** SOAL 6 */ "6. Koordinat titik balik maksimum fx=2x3−3x2−36x+2 <br> Titik Stasioner: 6x2−6x−36=0→x2−x−6=0→x−3x+2=0.<br> Uji: Untuk x = −2→f−2=2−8−34−36−2+2=46.<br> Jawaban: E. (-2, 46) .",
+          /** SOAL 7 */ "7. Persamaan garis singgung y=x3−3x2+4x+1 di absis 1 <br> Titik: x = 1 →y = 1 − 3 + 4 + 1 = 3. Titik (1, 3). <br> Gradien (m): y'=3x2−6x+4→m=31−61+4=1. <br> Persamaan: y−3=1x−1→x−y+2=0. <br> Jawaban: D. x - y + 2 = 0 ",
+          /** SOAL 8 */ "8. Tinggi tabung volume 128πagar luas permukaan minimum <br> Syarat Luas Minimum: Tinggi (h) = Diameter (2r).<br> Volume: πr2h=128π→r22r=128→r3=64→r=4.<br> Tinggi: h = 2(4) = 8.<br> Jawaban: A. 8 m ",
+          /** SOAL 9 */ "9. Fungsi f(x) = 13x3−12x2−6x+2tidak pernah turun <br> Syarat f'≥0:x2−x−6≥0→x−3x+2≥0.<br> Interval: x ≤−2 atau x ≥3. <br> Jawaban: D. x ≤−2 atau x ≥3",
+          /** SOAL 10 */ "10. Turunan pertama f(x) = x2+2x+41/2 <br> Aturan Rantai: f'x=12x2+2x+4−1/2⋅2x+2.<br> Penyederhanaan: f'x=x+1x2+2x+4−1/2.<br> Jawaban: D. x+1x2+2x+4−1/2",
+        ],
+
+        a2a: [
+          "1.Turunan f(x)=6x^3+12 pada x=-2... <BR> f'(x) = 18x^2→f'(−2)=18(−2)^2 =72<BR> Jawaban: E. 72 ",
+          "2.Jika f(x)=3x^2 + kx − 15 dan f'(6)=40, nilai k adalah... <BR> f'(x)=6x+k→ f'(6)=36+k=40→ k=4<BR> Jawaban: B. 4 ",
+          " <img src='img/PEMBAHASAN S3 A2A (2).png' width='400px' style='border-radius:10px;'>",
+          "<img src='img/PEMBAHASAN S4 A2A (1).png' width='400px' style='border-radius:10px;'>",
+          "5.Garis singgung y=x^3 + 6x^2 − 5x + 3 di (1,5)... <BR> m = y'=3x^2 + 12x − 5.Di x=1,m=3+12−5=10 <BR>y−5=10x−1→10x−y−5=0 <BR> Jawaban: C. 10x - y - 5 = 0",
+          "6.Interval 4≤x≤6 untuk f(x)=1/2x^4 − 6x^3 +27x^2 − 54x… <BR> f'(x) = 2x^3 − 18x^2 + 54x−54=2(x^3 − 9x^2+ 27x − 27)= (2x−3)3<BR> Untuk x > 3, f'(x) selalu positif. Maka pada interval 4 ≤x ≤6, grafik selalu naik.<BR> Jawaban: A. Selalu naik",
+          "7.Kecepatan tertinggi mobil S(t)=−1/3t^3 + 4t^2 − 12t... <BR> v(t) = S'(t) = −t^2+8t − 12<BR> Kecepatan tertinggi (titik puncak) saat v'(t) = 0 → −2t + 8 = 0 →t = 4<BR> Jawaban: D. 4 ",
+          "8.Nilai minimum f(x)=1/4(2x^3−3x^2−12x +7) pada−2≤x≤0…<BR> f'(x) = 1/4 (6x^2−6x−12)=0→x^2−x−2=0→ (x−2)(x+1)=0 <BR> Di dalam interval: x = -1.<BR> f(-1) = 1/4(−2−3+12+7)=14/4=3,5 <BR> f(-2) = 1/4(−16−12+24+7) = 3/4 = 0,75 <BR> f(0) = 7/4 = 1,75 <BR> Jawaban: C. 0,75 ",
+          "9.Keuntungan maksimum penjualan x barang... <BR> Untung U(x) = Jual - Biaya = (800x+500) − (400x+10x^2)= −10x^2 + 400x + 500<BR> U'(x) = −20x + 400 = 0 → x = 20 <BR> U(20) = −10(400)+400(20)+500= −4000 + 8000 + 500=4500<BR> Jawaban: A. Rp4.500.000,00 ",
+          "10.Lebar persegi panjang agar luas maksimum... <BR> Keliling 2(p+l)=2x+20→p+l=x+10<BR>(8−x)+l=x+10→l=2x+2<BR> Luas = (8−x)(2x+2)=−2x^2 + 14x + 16<BR> L' = −4x + 14 = 0 →x = 3,5  <BR> I= 2(3,5) + 2 = 9 <BR> Jawaban: B. 9 cm",
+        ],
+
+        a3a: [
+          "1.Turunan pertama f(x)=12x-5... <br>f'(x) = 12<br>Jawaban: E. f(x) = 12 ",
+          "2.Jika h(x)=f(x)-3g(x), turunan h(x) adalah... <br>h(x) = (4x^2 − 5x + 6) − 3(x^2 − 2x + 4) = x^2 + x − 6 <br>h'(x) = 2x + 1<br>Jawaban: C. 2x + 1",
+          "3.<img src='img/pembahasan s3 a3a.png' width='400px' style='border-radius:10px;'>",
+          "4.Turunan y=(x − x^(−2))^2... <br>y'=2(x−x^(−2)) ⋅ (1+2x^(−3))=2(x+2x^(−2) − x^(−2) − 2x^(−5)=2(x+x^(−2) − 2x(−5))<br>Jawaban: A. 2(x + x⁻² - 2x⁻⁵) ",
+          "<img src='img/PEMBAHASAN s5 a3a (1).png' width='400px' style='border-radius:10px;'>",
+          "<img src='img/PEMBAHASAN s6 a3a (6).png' width='400px' style='border-radius:10px;'>",
+          "<img src='img/PEMBAHASAN  s7 a3a (5).png' width='400px' style='border-radius:10px;'>",
+          "<img src='img/PEMBAHASAN s8 a3a (4).png' width='400px' style='border-radius:10px;'>",
+          "<img src='img/PEMBAHASAN  s9 a3a (3).png' width='400px' style='border-radius:10px;'>",
+          "<img src='img/PEMBAHASAN s10 a3a (2).png' width='400px' style='border-radius:10px;'>",
+        ],
+
+ a1t: [
+    "Langkah Penyelesaian: <br> f(x) = 3sin x <br> f'(x) = 3 · (cos x) <br> f'(x) = 3cos x<br>","Langkah Penyelesaian:<br> f(x) = 5cos x <br> f'(x) = 5 · (-sin x) <br> f'(x) = -5sin x <br>","Langkah Penyelesaian:<br>f(x) = 2x sin x<br>Gunakan rumus (uv)' = u'v + uv'<br>u = 2x→ u' = 2<br>v = sin x → v' = cos x<br>","Pembahasan:<br>Turunan tan x adalah sec²x.<br>Turunan sec x adalah sec x tan x.<br><br>Langkah Penyelesaian:<br>d/dx (tan x) = sec²x<br>d/dx (sec x) = sec x tan x<br>Jumlahkan hasilnya:<br>dy/dx = sec²x + sec x tan x","Langkah Penyelesaian:<br>y = sin(3x²)<br>Turunan sin u adalah cos u · u'<br>u = 3x²<br>u' = 6x<br><br>dy/dx = cos(3x²) · 6x<br>dy/dx = 6x cos(3x²)",
+    /** SOAL 6 */ "Pembahasan:<br>Gunakan aturan hasil bagi. <br><br>Langkah Penyelesaian:<br>Gunakan rumus (u/v)' = (u'v - uv')/v²<br>u = sin x → u' = cos x<br>v = x → v' = 1<br><br>dy/dx = (cos x · x - sin x · 1)/x²<br>dy/dx = (x cos x - sin x)/x²",
+    /** SOAL 7 */ "Pembahasan:<br>Kecepatan adalah turunan posisi. <br><br>Langkah Penyelesaian:<br>s(t) = 4 sin t<br>v(t) = s'(t)<br>v(t) = 4 cos t",
+    /** SOAL 8 */ "Pembahasan:<br>Gunakan aturan rantai. <br><br>Langkah Penyelesaian:<br>h(t) = 3cos(2t)<br>Turunan cos u = -sin u · u'<br>u = 2t → u' = 2<br>h'(t) = 3(-sin(2t))·2<br>h'(t) = -6 sin(2t)",
+    /** SOAL 9 */ "Pembahasan:<br>Gunakan aturan perkalian. <br><br>Langkah Penyelesaian:<br>u = x² → u' = 2x<br>v = tan x → v' = sec²x<br>dy/dx = u'v + uv'<br>= 2x tan x + x² sec²x",
+    /** SOAL 10 */ "Pembahasan:<br>Gunakan aturan rantai. <br><br>Langkah Penyelesaian:<br>y = (cos x)²<br>dy/dx = 2cos x · (-sin x)<br>dy/dx = -2cos x sin x"
+  ],
+
+  a2t: [
+    "Pembahasan :<br>Gunakan aturan turunan pangkat: jika f(x)=axⁿ maka f′(x)=a·n·xⁿ⁻¹.<br>Langkah Penyelesaian :<br>1. Pangkat x adalah 3.<br>2. Koefisien 7 dikalikan 3.<br>3. Pangkat x berkurang satu.<br>4. f′(x)=21x².","Langkah Penyelesaian :<br>1. Turunan 3x² adalah 6x.<br>2. Turunan −5x adalah −5.<br>3. Turunan konstanta 4 adalah 0.<br>4. Hasil akhir f′(x) = 6x − 5.","Pembahasan :<br>Soal ini menggunakan aturan perkalian atau dapat disederhanakan terlebih dahulu.<br><br>Langkah Penyelesaian :<br>1. Kembangkan fungsi: f(x)=2x³+8x²−3x−12.<br>2. Turunkan tiap suku.<br>3. Turunan 2x³=6x².<br>4. Turunan 8x²=16x.<br>5. Turunan −3x=−3.<br>6. Hasil akhir disederhanakan menjadi 6x²+13x−12.","Langkah Penyelesaian :<br>1. Ubah f(x) menjadi 5 − 2/x.<br>2. Turunan 5 adalah 0.<br>3. Turunan −2/x = 2/x².<br>4. Karena tanda negatif, hasilnya −2/x².","Pembahasan :<br>Gunakan turunan dasar fungsi trigonometri.<br><br>Langkah Penyelesaian :<br>1. Turunan sin x adalah cos x.<br>2. Turunan cos x adalah −sin x.<br>3. Dikalikan koefisien 2.<br>4. Hasil f′(x)=cos x − 2sin x.",
+    /** SOAL 6 */ "Pembahasan :<br>Turunan fungsi trigonometri dilakukan per suku. <br><br>Langkah Penyelesaian <br>1. Turunan 3sin x = 3cos x.<br>2. Turunan −cos x = sin x.<br>3. Hasil f′(x)=3cos x − sin x.",
+    /** SOAL 7 */ "Pembahasan :<br>Gunakan aturan rantai (chain rule). <br><br>Langkah Penyelesaian :<br>1. Misal u=x²+1.<br>2. f(x)=u².<br>3. f′(x)=2u·u′.<br>4. u′=2x.<br>5. Hasil f′(x)=4x(x²+1).",
+    /** SOAL 8 */ "Pembahasan :<br>Fungsi akar dapat ditulis dalam bentuk pangkat.<br><br>Langkah Penyelesaian :<br>1. f(x)=(x²+4)¹ᐟ².<br>2. Gunakan aturan rantai.<br>3. Turunan = ½(x²+4)⁻¹ᐟ²·2x.<br>4. Disederhanakan menjadi x/√(x²+4).",
+    /** SOAL 9 */ "Pembahasan :<br>Kecepatan adalah turunan pertama dari jarak terhadap waktu. <br><br>Langkah Penyelesaian :<br>1. s(t)=2t³−3t²+5t.<br>2. Turunkan setiap suku.<br>3. 2t³ → 6t².<br>4. −3t² → −6t.<br>5. 5t → 5.<br>6. v(t)=6t²−6t+5.",
+    /** SOAL 10 */ "Pembahasan :<br>Laju perubahan biaya adalah turunan pertama dari fungsi biaya.<br><br>Langkah Penyelesaian :<br>1. C(x)=x³−6x²+15x.<br>2. Turunkan setiap suku.<br>3. x³ → 3x².<br>4. −6x² → −12x.<br>5. 15x → 15.<br>6. C′(x)=3x²−12x+15."
+  ],
+
+  a3t: [
+    "Pembahasan:<br>Gunakan rumus dasar turunan trigonometri.<br>Jika f(x) = a sin x, maka f'(x) = a cos x. <br><br>Langkah Penyelesaian:<br>1. Diketahui f(x) = 3sin x.<br>2. Turunan sin x adalah cos x.<br>3. Maka f'(x) = 3 × cos x.<br>4. Jadi hasil akhirnya adalah 3cos x.","Pembahasan:<br>Turunan cos x adalah -sin x. <br><br>Langkah Penyelesaian:<br>1. f(x) = 5cos x.<br>2. Turunan cos x = -sin x.<br>3. Maka f'(x) = 5(-sin x).<br>4. f'(x) = -5sin x.","Pembahasan:<br>Gunakan aturan perkalian. <br><br>Langkah Penyelesaian:<br>1. f(x) = x sin x.<br>2. Gunakan (uv)' = u'v + uv'.<br>3. u = x, u' = 1.<br>4. v = sin x, v' = cos x.<br>5. f'(x) = (1)(sin x) + (x)(cos x).<br>6. Jadi hasilnya sin x + x cos x.","Pembahasan:<br>Gunakan aturan rantai (chain rule).<br><br>Langkah Penyelesaian:<br>1. f(x) = 2sin(3x).<br>2. Turunan sin u adalah cos u × u'.<br>3. Misal u = 3x, maka u' = 3.<br>4. Maka f'(x) = 2 × cos(3x) × 3.<br>5. Hasilnya 6cos(3x).","Pembahasan:<br>Gunakan aturan rantai. <br><br>Langkah Penyelesaian:<br>1. Turunan tan u adalah sec² u × u'.<br>2. Misal u = 2x.<br>3. Maka u' = 2.<br>4. Jadi f'(x) = sec²(2x) × 2.<br>5. Hasilnya 2sec²(2x).",
+    /** SOAL 6 */ "Langkah Penyelesaian:<br>1. Diketahui s(t) = 4sin(2t).<br>2. v(t) = s'(t).<br>3. Turunan sin(2t) adalah cos(2t) × 2.<br>4. Maka v(t) = 4 × cos(2t) × 2.<br>5. Hasilnya 8cos(2t).",
+    /** SOAL 7 */ "Langkah Penyelesaian:<br>1. Turunan cos u adalah -sin u × u'.<br>2. u = 3x, u' = 3.<br>3. Maka y' = 6 × (-sin(3x)) × 3.<br>4. Hasilnya -18sin(3x).",
+    /** SOAL 8 */ "Langkah Penyelesaian:<br>1. f(x) = sec x.<br>2. Gunakan rumus turunan dasar.<br>3. f'(x) = sec x tan x.",
+    /** SOAL 9 */ "Pembahasan:<br>Gunakan aturan pembagian. <br><br>Langkah Penyelesaian:<br>1. Gunakan (u/v)' = (u'v - uv')/v².<br>2. u = sin x, u' = cos x.<br>3. v = x, v' = 1.<br>4. Maka f'(x) = (cos x·x - sin x·1)/x².<br>5. Hasilnya (x cos x - sin x)/x².",
+    /** SOAL 10 */ "Pembahasan:<br>Laju perubahan adalah turunan terhadap waktu.<br><br>Langkah Penyelesaian:<br>1. θ(t) = 5tan t.<br>2. Turunan tan t adalah sec² t.<br>3. Maka θ'(t) = 5sec² t."
+  ],
+
+ a1u: [
+"Persamaan garis singgung<br>1. Titik x=1, y=3<br>2. Turunan y'=3x^2-6x+4, m=1<br>3. Persamaan x-y+2=0",
+"Turunan fungsi<br>1. f(x)=(x^2+1)(3x-2)<br>2. f(x)=3x^3-2x^2+3x-2<br>3. f'(x)=9x^2-4x+3",
+"Titik balik maksimum<br>1. f'(x)=6x^2-6x-36=0<br>2. x=-2 atau x=3<br>3. Maksimum di (-2,46)",
+"Tabung volume minimum<br>1. V=pi*r^2*h=128pi<br>2. Luas minimum saat h=2r<br>3. r=4, h=8",
+"Nilai minimum maksimum<br>1. f'(x)=3x^2-6x=0<br>2. Uji x=-1,0,2,4<br>3. Min=6, Max=26",
+"Turunan trigonometri<br>1. d(tan^2 x)=2tanx sec^2x<br>2. d(cot^2 x)=-2cotx csc^2x<br>3. f'(x)=2(tanx sec^2x+cotx csc^2x)",
+"Gradien garis singgung<br>1. f'(x)=6sec^2(2x)<br>2. x=3pi/8, sec^2(3pi/4)=2<br>3. m=12",
+"Fungsi turun<br>1. f'(x)=-2sin4x<br>2. sin4x>0<br>3. Interval 270<x<315",
+"Turunan kedua<br>1. f'(x)=-csc^2x-2cos2x<br>2. f''(x)=2csc^2x cotx+4sin2x",
+"Kedudukan partikel<br>1. f(t)=cos5t<br>2. t=pi, cos5pi=-1<br>3. 1 cm di bawah sumbu"
+],
+
+  a2u: [
+"Turunan fungsi<br>1. f(x)=6x^3+12<br>2. f'(x)=18x^2<br>3. f'(-2)=18(4)=72",
+"Garis singgung<br>1. y'=3x^2+12x-5<br>2. x=1, m=10<br>3. y-5=10(x-1) -> 10x-y-5=0",
+"Grafik fungsi<br>1. f'(x)=2(x-3)^3<br>2. Untuk x>3, f'(x)>0<br>3. Grafik selalu naik",
+"Kecepatan maksimum<br>1. v(t)=S'(t)=-t^2+8t-12<br>2. v'(t)=-2t+8=0<br>3. t=4",
+"Keuntungan maksimum<br>1. U(x)=-10x^2+400x+500<br>2. U'(x)=-20x+400=0<br>3. U(20)=4500",
+"Turunan fungsi<br>1. d(4x^3)=12x^2<br>2. d(sin x)=cos x<br>3. d(cos x)=-sin x",
+"Titik stasioner<br>1. f'(x)=1+cos x=0<br>2. cos x=-1<br>3. x=180",
+"Turunan kedua<br>1. f'(x)=-csc x cot x - csc^2 x<br>2. f''(x)=csc x(2csc x cot x+cot^2 x+csc^2 x)",
+"Titik belok<br>1. f(x)=-cos(4x-70)<br>2. f''(x)=16cos(4x-70)=0<br>3. x=40, y=0",
+"Fungsi kecepatan<br>1. f(t)=-2 sin t<br>2. v(t)=f'(t)<br>3. v(t)=-2 cos t"
+],
+
+a3u: [
+          "Turunan<br>1. f(x)=(1+x^2)cos x<br>2. f'(x)=2x cos x-(1+x^2)sin x<br>3. x=π → -2π",
+          "Garis singgung<br>1. cos2x=1/2 → x=π/6 atau 5π/6<br>2. y'=-2sin2x<br>3. Substitusi titik → persamaan garis",
+          "Fungsi tidak turun<br>1. f(x) = 1 + tan^2 x <br> 2. f'(x)=2tan x sec^2 x ≥ 0 <br>3. Interval 0° ≤ x&lt ; 90° atau 180°≤ x& lt ; 270°",
+          "Titik stasioner<br>1. f'(x)=-4sin x-2sin2x=0<br>2. Diperoleh x tertentu<br>3. y=-3 dan 5",
+          "Kekonkavan<br>1. f(x)=cos x+5 <br> 2. f'(x)=-cos x <br> 3. f'(x)& gt;0 untuk 90° & lt ; x & lt; 270°",
+          "Turunan fungsi<br>1. h(x)=4x^2-5x+6-3(x^2-2x+4)<br>2. h'(x)=2x+1",
+          "Garis singgung<br>1. Gradien -1/4<br>2. Bentuk umum y-ax=b(x-c)<br>3. Diperoleh x+4y-11=0",
+          "Nilai stasioner<br>1. f'(x)=2x-4=0<br>2. x=2<br>3. Hanya satu titik stasioner",
+          "Kecepatan<br>1. v(t)=S'(t)=40-8t<br>2. v(2)=24 m/detik",
+          "Keuntungan maksimum<br>1. U(x)=-2x^2+200x-200000<br>2. U'(x)=0 → x=50<br>3. Umax=280000",
+        ],
+};
+
+// ==================================================
+// RENDER SOAL
+// ==================================================
+function renderSoal(){
+ const data = soalData[index];
+ const user = jawabanUser[index];
+
+ // 🔒 FIX UTAMA: kalau soal tidak ada
+ if(!data || !data.soal || !data.opsi){
+   document.getElementById("soalBox").innerHTML = `
+   <div class="bahas">
+     <b>DATA SOAL TIDAK DITEMUKAN</b><br><br>
+     Nomor ${index+1} belum memiliki data soal.
+   </div>`;
+   renderNav();
+   return;
+ }
+
+ let html = `
+ <div class="soal">${data.soal}</div>
+ <div class="options">
+ `;
+
+ data.opsi.forEach((opsi,i)=>{
+   let kelas="neutral";
+   if(i===data.benar) kelas="correct";
+   else if(i===user) kelas="wrong";
+   html+=`<div class="option ${kelas}">${opsi}</div>`;
+ });
+
+ const bahasan =
+   pembahasanMap[examKey] &&
+   pembahasanMap[examKey][index]
+   ? pembahasanMap[examKey][index]
+   : "Pembahasan belum tersedia.";
+
+ html+=`
+ </div>
+ <div class="bahas">
+ <b>PEMBAHASAN</b><br><br>
+ ${bahasan}
+ </div>
+ `;
+
+ document.getElementById("soalBox").innerHTML = html;
+ renderNav();
+}
+
+// ==================================================
+// NAV
+// ==================================================
+function renderNav(){
+ const nav=document.getElementById("navBox");
+ nav.innerHTML="";
+ soalData.forEach((_,i)=>{
+  nav.innerHTML+=`
+  <div class="navItem ${i===index?'active':''}" onclick="pindah(${i})">
+  ${i+1}
+  </div>
+  `;
+ });
+}
+
+function pindah(i){index=i;renderSoal();}
+function nextSoal(){if(index<soalData.length-1){index++;renderSoal();}}
+function prevSoal(){if(index>0){index--;renderSoal();}}
+
+renderSoal();
+</script>
+
+</body>
+</html>

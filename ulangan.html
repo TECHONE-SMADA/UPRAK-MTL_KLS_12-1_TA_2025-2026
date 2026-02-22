@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aljabar</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background-image:url("img/quizzz.png");
+background-repeat:no-repeat;
+background-size:cover;
+background-position:center 90%;
+background-attachment:fixed;
+overflow-x:hidden;
+}
+
+/* ANIMASI */
+@keyframes fadeIn{
+from{opacity:0;transform:scale(0.98);}
+to{opacity:1;transform:scale(1);}
+}
+
+/* ===== HEADER ===== */
+header{
+height:90px;
+background:linear-gradient(90deg,#ff5e62,#0837c6);
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 60px;
+color:white;
+position:sticky;
+top:0;
+z-index:9999;
+box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+header img{
+width:80px;
+max-width:100%;
+}
+
+header p{
+font-size:12px;
+letter-spacing:2px;
+}
+
+/* ===== HERO ===== */
+.hero{
+min-height:calc(100vh - 100px);
+padding:140px 20px 120px 20px;
+display:flex;
+flex-direction:column;
+align-items:center;
+}
+
+.hero h1{
+font-family:'Poppins','Comic Neue','Baloo 2','cursive';
+font-size:100px;
+font-weight:800;
+margin-bottom:100px;
+display:inline-block;
+text-align:center;
+
+background:linear-gradient(
+180deg,
+#ffffff 0%,
+#f3e6ff 45%,
+#d8b4ff 100%
+);
+
+-webkit-background-clip:text;
+background-clip:text;
+color:transparent;
+
+text-shadow:
+0 0 8px rgba(255,255,255,0.9),
+0 6px 14px rgba(180,120,255,0.4);
+
+animation:bubbleFade 2.8s ease-in-out infinite;
+}
+
+@keyframes bubbleFade{
+0%,100%{
+opacity:1;
+transform:scale(1);
+}
+50%{
+opacity:0.85;
+transform:scale(1.03);
+}
+}
+
+/* ===== GRID MENU ===== */
+.menu{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:80px;
+place-items:center;
+margin-bottom:60px;
+width:100%;
+max-width:900px;
+}
+
+.btn{
+width:340px;
+height:140px;
+
+background:linear-gradient(
+135deg,
+rgba(10,30,80,0.65),
+rgba(5,20,60,0.45)
+);
+
+backdrop-filter:blur(10px) saturate(170%);
+-webkit-backdrop-filter:blur(10px) saturate(170%);
+
+border-radius:60px;
+color:#ffffff;
+font-size:42px;
+font-weight:800;
+text-decoration:none;
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+transition:0.3s ease;
+
+box-shadow:
+0 26px 60px rgba(5,20,60,0.85),
+inset 0 0 28px rgba(120,160,255,0.25),
+inset 0 1px 2px rgba(255,255,255,0.7);
+
+border:7px solid rgba(5,25,80,0.95);
+
+position:relative;
+overflow:hidden;
+max-width:100%;
+}
+
+.btn::before{
+content:"";
+position:absolute;
+top:-50%;
+left:-30%;
+width:160%;
+height:160%;
+background:radial-gradient(
+circle at top left,
+rgba(255,255,255,0.45),
+rgba(120,160,255,0.25),
+transparent 65%
+);
+pointer-events:none;
+}
+
+.btn:hover{
+transform:translateY(-10px) scale(1.05);
+box-shadow:
+0 38px 85px rgba(5,20,60,0.95),
+inset 0 0 38px rgba(140,180,255,0.35),
+inset 0 1px 2px rgba(255,255,255,0.85);
+}
+
+.btn:active{
+transform:scale(0.95);
+}
+
+.full{
+grid-column:span 2;
+}
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav{
+position:fixed;
+bottom:25px;
+left:50%;
+transform:translateX(-50%);
+background:linear-gradient(90deg,#ff5e62,#0837c6);
+width:420px;
+max-width:95%;
+height:65px;
+border-radius:40px;
+display:flex;
+align-items:center;
+justify-content:space-around;
+box-shadow:0 10px 25px rgba(0,0,0,0.2);
+z-index:1000;
+}
+
+.bottom-nav a{
+text-decoration:none;
+color:white;
+font-size:14px;
+padding:12px 20px;
+border-radius:30px;
+font-weight:600;
+white-space:nowrap;
+}
+
+.bottom-nav .active{
+background:rgba(0,0,0,0.25);
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1000px){
+
+.menu{
+grid-template-columns:1fr;
+gap:50px;
+}
+
+.full{
+grid-column:span 1;
+}
+
+.btn{
+width:100%;
+max-width:500px;
+font-size:34px;
+height:120px;
+}
+
+.bottom-nav{
+width:95%;
+}
+
+header{
+padding:0 30px;
+}
+
+.hero h1{
+font-size:70px;
+margin-bottom:70px;
+}
+}
+
+@media(max-width:500px){
+
+header{
+padding:0 20px;
+}
+
+.hero{
+padding-top:120px;
+}
+
+.hero h1{
+font-size:48px;
+margin-bottom:50px;
+}
+
+.btn{
+font-size:26px;
+height:100px;
+border-radius:35px;
+}
+
+.bottom-nav{
+height:60px;
+}
+
+.bottom-nav a{
+font-size:12px;
+padding:10px 14px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<img src="img/logo.png">
+<p>DESIGNED BY TECHONE</p>
+</header>
+
+<section class="hero">
+
+<h1>ULANGAN</h1>
+
+<div class="menu">
+<a href="a1u.html" class="btn">U.1</a>
+<a href="a2u.html" class="btn">U.2</a>
+<a href="a3u.html" class="btn full">U.3</a>
+</div>
+
+</section>
+
+<div class="bottom-nav">
+<a href="materi.html">Materi</a>
+<a href="index.html">Halaman Utama</a>
+<a href="latihan.html" class="active">Latsol</a>
+</div>
+
+</body>
+</html>

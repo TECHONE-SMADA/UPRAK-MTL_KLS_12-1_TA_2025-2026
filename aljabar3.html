@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Materi Aljabar</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
+
+body{
+background-image:url("img/1.png");
+background-repeat:no-repeat;
+background-size:cover;
+background-position:center 90%;
+background-attachment:fixed;
+}
+
+/* HEADER */
+header{
+height:90px;
+background:linear-gradient(90deg,#fbc29e,#ff6f00);
+display:flex;
+align-items:center;
+justify-content:space-between;
+padding:0 60px;
+color:white;
+position:sticky;
+top:0;
+z-index:999;
+}
+
+header img{width:80px;}
+header p{font-size:12px;letter-spacing:2px;}
+
+/* HERO */
+.hero{
+position:relative;
+min-height:100vh;
+padding:60px 80px;
+}
+
+/* LABEL */
+.label{
+background:#ff8c42;
+color:white;
+display:inline-block;
+padding:14px 40px;
+border-radius:40px;
+font-weight:600;
+margin-bottom:20px;
+}
+
+/* EXIT */
+.exit{
+position:absolute;
+top:45px;
+right:80px;
+background:#ff8c42;
+border-radius:24px;
+padding:16px 24px;
+display:flex;
+flex-direction:column;
+align-items:center;
+gap:6px;
+color:white;
+font-weight:600;
+text-decoration:none;
+font-size:16px;
+box-shadow:0 12px 28px rgba(0,0,0,0.3);
+transition:0.25s;
+}
+
+.exit img{width:56px;}
+
+.exit:hover{
+transform:translateY(-6px);
+}
+
+.exit:active{
+transform:scale(0.92);
+}
+
+/* CONTENT BOX */
+.content-box{
+background:rgba(255,255,255,0.25);
+backdrop-filter:blur(18px) saturate(180%);
+-webkit-backdrop-filter:blur(18px) saturate(180%);
+border-radius:40px;
+padding:60px;
+color:#000;
+margin-top:20px;
+min-height:420px;
+box-shadow:0 20px 40px rgba(0,0,0,0.15);
+border:1px solid rgba(255,255,255,0.35);
+}
+
+.content-box h3{
+margin-top:20px;
+margin-bottom:10px;
+}
+
+.content-box p{
+font-size:15px;
+line-height:1.8;
+}
+
+/* VIDEO RESPONSIVE */
+.video-wrapper{
+position:relative;
+width:100%;
+padding-bottom:56.25%;
+margin:25px 0;
+}
+
+.video-wrapper iframe{
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:100%;
+border-radius:20px;
+}
+
+/* NAV */
+.nav-buttons{
+display:flex;
+justify-content:space-between;
+margin-top:40px;
+}
+
+.nav-buttons a{
+background:#ff8c42;
+color:white;
+text-decoration:none;
+padding:18px 50px;
+border-radius:40px;
+font-weight:600;
+font-size:22px;
+transition:0.2s;
+}
+
+.nav-buttons a:hover{
+transform:translateY(-5px);
+}
+
+.nav-buttons a:active{
+transform:scale(0.9);
+}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+
+.hero{
+padding:40px 20px;
+}
+
+.exit{
+right:20px;
+top:30px;
+}
+
+.content-box{
+padding:30px 20px;
+}
+
+.nav-buttons{
+flex-direction:column;
+gap:20px;
+}
+
+.nav-buttons a{
+width:100%;
+text-align:center;
+font-size:18px;
+}
+
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<img src="img/logo.png" alt="Logo">
+<p>DESIGNED BY TECHONE</p>
+</header>
+
+<section class="hero">
+
+<a href="materi.html" class="exit">
+<img src="img/exit.png" alt="Exit">
+<span>EXIT</span>
+</a>
+
+<div class="label">MATERI ALJABAR</div>
+
+<div class="content-box">
+
+<h3>7. Turunan Kedua</h3>
+<p>
+Turunan kedua adalah turunan dari turunan pertama f''(x).<br>
+Jika f''(x) > 0 maka titik minimum.<br>
+Jika f''(x) < 0 maka titik maksimum.
+</p>
+
+<div class="video-wrapper">
+<iframe src="https://www.youtube.com/embed/BoZnZ5cJO3E" allowfullscreen></iframe>
+</div>
+
+<h3>8. Aplikasi Turunan Aljabar</h3>
+<p>
+Digunakan dalam optimasi maksimum dan minimum, kecepatan dan percepatan, serta berbagai masalah matematika terapan.
+</p>
+
+<div class="video-wrapper">
+<iframe src="https://www.youtube.com/embed/HByr8CyLrvE" allowfullscreen></iframe>
+</div>
+
+</div>
+
+<div class="nav-buttons">
+<a href="aljabar2.html">PREVIOUS</a>
+<a href="materi.html">BACK</a>
+</div>
+
+</section>
+
+</body>
+</html>

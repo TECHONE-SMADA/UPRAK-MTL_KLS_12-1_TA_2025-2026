@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Turunan</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins', sans-serif;
+}
+
+/* ===== BODY PUTIH DASAR ===== */
+body{
+    background:#ffffff;
+    overflow-x:hidden;
+    position:relative;
+}
+
+/* ===== WAVE BACKGROUND LAYER ===== */
+.wave-bg{
+    position:fixed;
+    inset:0;
+    z-index:0;
+    overflow:hidden;
+    pointer-events:none;
+}
+
+.wave-bg svg{
+    position:absolute;
+    width:100%;
+    left:0;
+}
+
+/* Wave atas */
+.wave-top{
+    top:0;
+    height:65vh;
+}
+
+/* Wave bawah lanjut */
+.wave-bottom{
+    top:40vh;
+    height:100vh;
+}
+
+/* ===== SEMUA KONTEN DI DEPAN ===== */
+header,
+section,
+footer,
+.bottom-nav{
+    position:relative;
+    z-index:2;
+}
+
+/* ================= HEADER ================= */
+
+header{
+    height:90px;
+    background:linear-gradient(90deg,#55d6e4,#1c5fb8);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 60px;
+    color:white;
+    position:sticky;
+    top:0;
+}
+
+header img{
+    width:70px;
+}
+
+header p{
+    font-size:13px;
+    letter-spacing:2px;
+}
+
+/* ================= HERO ================= */
+
+.hero{
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding-top:120px;
+}
+
+/* TITLE CARD */
+
+.title-card{
+    background:linear-gradient(135deg,#ffffff,#e6f4ff);
+    padding:25px 70px;
+    border-radius:40px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.15);
+    margin-bottom:80px;
+}
+
+.title-card h1{
+    font-size:38px;
+    font-weight:500;
+    color:#0f3c73;
+}
+
+/* ================= CARD ================= */
+
+.card-wrapper{
+    display:flex;
+    gap:120px;
+}
+
+.card{
+    width:340px;
+    height:380px;
+    border-radius:45px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    color:white;
+    font-size:24px;
+    font-weight:600;
+    text-decoration:none;
+    transition:all 0.25s ease;
+    box-shadow:0 20px 40px rgba(0,0,0,0.25);
+}
+
+.card img{
+    width:160px;
+    margin-bottom:25px;
+}
+
+.card:hover{
+    transform:translateY(-10px) scale(1.04);
+}
+
+.orange{
+    background:linear-gradient(135deg,#ff9a44,#ff7a18);
+}
+
+.purple{
+    background:linear-gradient(135deg,#b76cff,#8e2de2);
+}
+
+/* ================= SECTION ================= */
+
+.section{
+    padding:140px 120px;
+}
+
+.box{
+    background:rgba(255,255,255,0.85);
+    padding:60px;
+    border-radius:35px;
+    margin-bottom:80px;
+    box-shadow:0 15px 35px rgba(0,0,0,0.1);
+    color:#1c5fb8;
+}
+
+.box h2{
+    margin-bottom:20px;
+}
+
+.center{
+    text-align:center;
+}
+
+/* ================= NAV ================= */
+
+.bottom-nav{
+    position:sticky;
+    bottom:0;
+    left:50%;
+    transform:translateX(-50%);
+    background:linear-gradient(90deg,#2196f3,#1c7ed6);
+    width:420px;
+    height:65px;
+    border-radius:40px;
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    margin:40px auto;
+}
+
+.bottom-nav a{
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+    padding:10px 18px;
+    border-radius:25px;
+}
+
+.bottom-nav .active{
+    background:linear-gradient(180deg,#3a8bfd,#295ee6);
+    font-weight:600;
+}
+
+/* ================= FOOTER ================= */
+
+footer{
+    text-align:center;
+    padding:40px;
+    background:#1c5fb8;
+    color:white;
+    letter-spacing:2px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width:1000px){
+    .card-wrapper{
+        flex-direction:column;
+        gap:50px;
+    }
+
+    .section{
+        padding:100px 30px;
+    }
+
+    .bottom-nav{
+        width:90%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ===== WAVE BACKGROUND ===== -->
+<div class="wave-bg">
+
+    <!-- Wave 1 -->
+    <svg class="wave-top" viewBox="0 0 1440 600" preserveAspectRatio="none">
+        <path fill="#3B82F6" fill-opacity="0.25"
+        d="M0,224L60,240C120,256,240,288,360,293.3C480,299,600,277,720,250.7C840,224,960,192,1080,192C1200,192,1320,224,1380,240L1440,256V0H0Z">
+        </path>
+    </svg>
+
+    <!-- Wave 2 lanjut bawah -->
+    <svg class="wave-bottom" viewBox="0 0 1440 1000" preserveAspectRatio="none">
+        <path fill="#60A5FA" fill-opacity="0.20"
+        d="M0,320L60,346.7C120,373,240,427,360,448C480,469,600,459,720,426.7C840,395,960,341,1080,330.7C1200,320,1320,352,1380,368L1440,384V1000H0Z">
+        </path>
+    </svg>
+
+</div>
+
+<header>
+    <img src="img/logo.png" alt="logo">
+    <p>DESIGNED BY TECHONE</p>
+</header>
+
+<section class="hero">
+
+    <div class="title-card">
+        <h1>Hari ini mau belajar apa?!</h1>
+    </div>
+
+    <div class="card-wrapper">
+        <a href="materi.html" class="card orange">
+            <img src="img/book.png">
+            Materi-Materi<br>turunan
+        </a>
+
+        <a href="latihan.html" class="card purple">
+            <img src="img/paper.png">
+            Latihan Soal<br>turunan
+        </a>
+    </div>
+
+</section>
+
+<section class="section">
+
+    <div class="box">
+        <h2>TUJUAN PEMBELAJARAN</h2>
+        <p>Lorem ipsum dolor sit amet...</p>
+
+        <h2 style="margin-top:40px;">SEJARAH TURUNAN</h2>
+        <p>Lorem ipsum dolor sit amet...</p>
+    </div>
+
+    <div class="box">
+        <h2>PRESENTED By</h2>
+        <ol>
+            <li>RIVANI AS WEBSITE CREATOR</li>
+            <li>TANGGUH AS WEBSITE CREATOR</li>
+            <li>HAFIIDZ AS WEBSITE CREATOR</li>
+        </ol>
+    </div>
+
+    <div class="box center">
+        <h2>QUOTES</h2>
+        <p>Lorem ipsum dolor sit amet...</p>
+    </div>
+
+</section>
+
+<div class="bottom-nav">
+    <a href="materi.html">Materi</a>
+    <a href="index.html" class="active">Halaman Utama</a>
+    <a href="latihan.html">Latsol</a>
+</div>
+
+<footer>
+    Shine Bright Stay High ✨
+</footer>
+
+</body>
+</html>

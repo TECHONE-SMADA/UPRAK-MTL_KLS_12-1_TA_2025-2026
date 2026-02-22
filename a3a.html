@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>UJIAN A3</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+body{background:#fff;padding-bottom:200px}
+
+body {
+    background-image: url("img/quizz.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 1%; /* makin besar = makin turun */
+    background-attachment: fixed;
+}
+
+/* HEADER */
+header{
+height:90px;
+background:linear-gradient(135deg,#2a2e12,#e6d6b6);
+display:flex;align-items:center;justify-content:space-between;
+padding:0 40px;color:white;position:sticky;top:0;z-index:9999;
+box-shadow:0 6px 20px rgba(0,0,0,.2);
+}
+header img{width:80px}
+
+/* HERO */
+.hero{
+    padding-top:120px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+/* card putih */
+.hero h1{
+    font-size:40px;
+    font-weight:800;
+    color:#495021;
+
+    background:#ffffff;
+    padding:20px 50px;
+    border-radius:25px;
+
+    margin-bottom:30px;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.15);
+}
+
+/* MAIN */
+.main{display:flex;gap:40px;width:90%;max-width:1200px}
+.left{flex:2}
+.soal{
+    font-size:18px;
+    margin-bottom:20px;
+
+    /* CARD PUTIH */
+    background:#ffffff;
+    padding:25px 30px;
+    border-radius:25px;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,0.15);
+
+    line-height:1.6;
+}
+
+/* OPTIONS */
+.options{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
+
+.options button{
+    padding:15px;
+    border:none;
+    border-radius:40px;
+    background:#495021;
+
+    color:#ffffff;        /* ⬅️ PUTIH saat belum dijawab */
+    font-weight:600;
+    cursor:pointer;
+
+    transition:0.25s;
+}
+
+.options button:hover{
+    background:#5e6728;
+}
+
+/* saat dipilih */
+.options button.active{
+    background:#819133;
+    color:#e6d6b6;        /* krem */
+}
+
+/* RIGHT */
+.right{width:260px;display:flex;flex-direction:column;gap:20px}
+
+/* EXIT CARD */
+.exit-card{
+background:linear-gradient(135deg,#495021,#e6d6b6);
+border-radius:22px;padding:14px;
+display:flex;flex-direction:column;align-items:center;
+color:white;text-decoration:none;font-weight:600;
+box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
+.exit-card img{width:34px}
+
+/* TIMER CARD */
+.timer-card{
+background:white;border-radius:26px;padding:22px 20px;
+text-align:center;font-weight:700;color:#495021;
+box-shadow:0 12px 30px rgba(0,0,0,0.18);
+}
+.timer-card span{font-size:32px;display:block;margin-top:6px}
+
+/* GRID */
+.number-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.number-grid div{
+height:50px;border-radius:25px;
+display:flex;align-items:center;justify-content:center;
+background:linear-gradient(135deg,#495021,#e6d6b6);
+cursor:pointer;font-weight:600;
+}
+.number-grid div.active{outline:3px solid #495021}
+.number-grid div.done{background:#495021;color:#e6d6b6}
+
+/* FOOTER */
+.footer{
+margin-top:30px;display:flex;gap:15px;
+width:90%;max-width:700px
+}
+.footer button,.footer a{
+flex:1;padding:15px;border-radius:40px;border:none;
+background:linear-gradient(135deg,#495021);
+color:white;font-weight:600;
+cursor:pointer;text-align:center;text-decoration:none;
+}
+.footer a{display:none}
+
+/* MODAL */
+.modal{
+position:fixed;inset:0;
+background:rgba(0,0,0,.45);
+display:none;align-items:center;justify-content:center;
+z-index:99999;
+}
+.modal-card{
+background:white;padding:30px;border-radius:30px;
+text-align:center;width:90%;max-width:360px;
+}
+.modal-card h3{color:#495021;margin-bottom:10px}
+.modal-card button{
+margin-top:20px;padding:12px 30px;
+border:none;border-radius:30px;
+background:#495021;color:#e6d6b6;font-weight:600;
+}
+</style>
+  </head>
+
+  <body>
+    <header>
+      <img src="img/logo.png" />
+      <p>DESIGNED BY TECHONE</p>
+    </header>
+
+    <section class="hero">
+      <h1>UJIAN A3</h1>
+
+      <div class="main">
+        <div class="left">
+          <div class="soal" id="soalText"></div>
+          <div class="options" id="optionsBox"></div>
+        </div>
+
+        <div class="right">
+          <a href="latihan.html" class="exit-card">
+            <img src="img/exit.png" /><span>EXIT</span>
+          </a>
+
+          <div class="timer-card">
+            SISA WAKTU
+            <span id="timer">20:00</span>
+          </div>
+
+          <div class="number-grid" id="grid"></div>
+        </div>
+      </div>
+
+      <div class="footer">
+        <button onclick="prevSoal()">PREVIOUS</button>
+        <button onclick="nextSoal()">NEXT</button>
+        <button onclick="kumpulkanJawaban()">KUMPULKAN</button>
+        <a href="hasil_ujian.html" id="hasilBtn">LIHAT HASIL</a>
+      </div>
+    </section>
+
+    <div class="modal" id="modal">
+      <div class="modal-card">
+        <h3 id="modalTitle"></h3>
+        <p id="modalText"></p>
+        <button onclick="closeModal()">OK</button>
+      </div>
+    </div>
+
+    <script>
+      // ==============================
+      const examKey = "a3a";
+      localStorage.setItem("examKey", examKey);
+      // ==============================
+
+      const soalText = document.getElementById("soalText");
+      const optionsBox = document.getElementById("optionsBox");
+      const grid = document.getElementById("grid");
+      const timerEl = document.getElementById("timer");
+      const hasilBtn = document.getElementById("hasilBtn");
+      const modal = document.getElementById("modal");
+      const modalTitle = document.getElementById("modalTitle");
+      const modalText = document.getElementById("modalText");
+
+      let totalSoal = 10;
+      let currentSoal = 0;
+      let jawaban = new Array(totalSoal).fill(null);
+      let sisaWaktu = 20 * 60;
+      let sudahKumpul = false;
+      let timerInterval;
+
+      // ==============================
+      // SOAL + OPSI (INDEX 0–4)
+      // ==============================
+      const soalArray = [
+        {
+          soal: "1. Diketahui fungsi f(x) = 12x - 5. Turunan pertama dari fungsi f(x) adalah . . ..",
+          opsi: [
+            "A. f(x) = 24x",
+            "B. f(x) = 12x",
+            "C. f(x) = -5",
+            "D. f(x) = 24",
+            "E. f(x) = 12",
+          ],
+          benar: 4,
+        },
+        {
+          soal: "2. Diketahui fungsi f(x) = 4x2 – 5x + 6 dan g(x) = x2 – 2x + 4. Jika h(x) = f(x) - 3g(x), turunan pertama fungsi h(x) adalah…",
+          opsi: [
+            "A. 2x - 11",
+            "B. 2x - 1",
+            "C. 2x + 1",
+            "D. -2x - 11",
+            "E. -2x + 1",
+          ],
+          benar: 2,
+        },
+        {
+          soal: "3.  Turunan pertama dari <img src='img/soal3 a3a (1).png' width='170px' style='border-radius:10px;'>  adalah f’(x) = …",
+          opsi: [
+            "<img src='img/3A a3a.png' width='100px' style='border-radius:10px;'>",
+            "<img src='img/3B a3a.png' width='100px' style='border-radius:10px;'>",
+            "<img src='img/3C a3a.png' width='100px' style='border-radius:10px;'>",
+            "<img src='img/3D a3a.png' width='100px' style='border-radius:10px;'>",
+            "<img src='img/3E a3a.png' width='100px' style='border-radius:10px;'>",
+          ],
+          benar: 1,
+        },
+        {
+          soal: "4. Turunan pertama dari fungsi y = (x − x^(−2) )^2 adalah y’ = …",
+          opsi: [
+            "A. 2(x + x^(−2) − 2x^(−5))",
+            "B. 2(x + x^(−2) + 2x^(−5))",
+            "C. 2(x + x^(−2) − 2x^(−4))",
+            "D. 2(x − x^(−2) − 2x^(−5))",
+            "E. 2(x − x^(−2) + 2x^(−4))",
+          ],
+          benar: 0,
+        },
+        {
+          soal: "5. Persamaan garis singgung yang bergradien −1/4, pada kurva <img src='img/soal5 a3a.png' width='100px' style='border-radius:10px;'> adalah…",
+          opsi: [
+            "A. 2x + 8y − 11 = 0",
+            "B. 2x + 8y − 9 = 0",
+            "C. x + 4y − 11 = 0",
+            "D. x + 4y − 9 = 0",
+            "E. x + 4y + 11 = 0",
+          ],
+          benar: 2,
+        },
+        {
+          soal: "6. Fungsi <img src='img/soal6 a3a.png' width='100px' style='border-rapdius:10px;'> turun pada interval…",
+          opsi: [
+            "A. x > 6",
+            "B. x < 0 atau x > 6",
+            "C. x < x < 3 atau 3 < x < 6",
+            "D. 0 < x < 6",
+            "E. 3 < x < 6",
+          ],
+          benar: 2,
+        },
+        {
+          soal: "7. banyaknya nilai stasioner dari fungsi f(x) = (x^2 − 4x + 3)^4 adalah…",
+          opsi: ["A. 0", "B. 1", "C. 2", "D. 3", "E. 4"],
+          benar: 3,
+        },
+        {
+          soal: "8. Nilai minimum mutlak fungsi f(x) yang ditentukan oleh f(x) = x^4 − 2x^2 − 8 pada interval −2 ≤ x ≤ 2 adalah…",
+          opsi: ["A. -12", "B. -9", "C. -6 ", "D. 0", "E. 3"],
+          benar: 1,
+        },
+        {
+          soal: "9. Seorang pedagang kue menjual x bungkus kue pukis dengan biaya total (2x^2 − 800x +200.000) rupiah. Jika sebungkus kue pukis dijual dengan harga (4000 − 10x rupiah, keuntungan maksimum yang diperoleh pedagang tersebut adalah… ",
+          opsi: [
+            "A. Rp478.000,00",
+            "B. Rp400.000,00",
+            "C.Rp315.000, 00",
+            "D.Rp280.000,00",
+            "E.Rp120.000,00",
+          ],
+          benar: 3,
+        },
+        {
+          soal: "10. Seorang pemain bola melempar bola dari pinggir lapangan ke arah gawang dengan persamaan gerak S(t) = 40t – 4t^2 . Misalkan t menyatakan waktu sejak bola dilemparkan dalam satuan detik dan S menyatakan jarak bola dari titik awal dalam satuan meter pada saat t detik. Kecepatan awal saat t = 2 detik adalah…",
+          opsi: [
+            "A. 40 m/detik",
+            "B. 36 m/detik",
+            "C. 32 m/detik",
+            "D. 24 m/detik",
+            "E. 20 m/detik",
+          ],
+          benar: 3,
+        },
+      ];
+
+      // GRID
+      for (let i = 0; i < totalSoal; i++) {
+        const d = document.createElement("div");
+        d.innerText = i + 1;
+        d.onclick = () => {
+          currentSoal = i;
+          renderSoal();
+        };
+        grid.appendChild(d);
+      }
+
+      // RENDER
+      function renderSoal() {
+        soalText.innerHTML = soalArray[currentSoal].soal;
+        optionsBox.innerHTML = "";
+        soalArray[currentSoal].opsi.forEach((opsi, i) => {
+          const btn = document.createElement("button");
+          btn.innerHTML = opsi;
+          btn.onclick = () => selectOption(i);
+          if (jawaban[currentSoal] === i) btn.classList.add("active");
+          optionsBox.appendChild(btn);
+        });
+        document.querySelectorAll(".number-grid div").forEach((d, i) => {
+          d.classList.toggle("active", i === currentSoal);
+          d.classList.toggle("done", jawaban[i] !== null);
+        });
+      }
+
+      function selectOption(i) {
+        jawaban[currentSoal] = i;
+        renderSoal();
+      }
+
+      function nextSoal() {
+        if (currentSoal < totalSoal - 1) {
+          currentSoal++;
+          renderSoal();
+        }
+      }
+      function prevSoal() {
+        if (currentSoal > 0) {
+          currentSoal--;
+          renderSoal();
+        }
+      }
+
+      function kumpulkanJawaban(auto = false) {
+        if (sudahKumpul) return;
+        if (!auto && jawaban.includes(null)) {
+          showModal("Belum Selesai", "Semua soal wajib dijawab.");
+          return;
+        }
+        sudahKumpul = true;
+        clearInterval(timerInterval);
+        localStorage.setItem(examKey + "_jawaban", JSON.stringify(jawaban));
+        localStorage.setItem(examKey + "_soal", JSON.stringify(soalArray));
+        localStorage.setItem(examKey + "_waktu", 20 * 60 - sisaWaktu);
+        showModal("Berhasil", "Jawaban berhasil dikumpulkan.");
+        hasilBtn.style.display = "block";
+      }
+
+      // TIMER
+      timerInterval = setInterval(() => {
+        if (sisaWaktu <= 0) {
+          clearInterval(timerInterval);
+          if (!sudahKumpul) kumpulkanJawaban(true);
+          return;
+        }
+        sisaWaktu--;
+        timerEl.innerText =
+          String(Math.floor(sisaWaktu / 60)).padStart(2, "0") +
+          ":" +
+          String(sisaWaktu % 60).padStart(2, "0");
+      }, 1000);
+
+      function showModal(t, m) {
+        modalTitle.innerText = t;
+        modalText.innerText = m;
+        modal.style.display = "flex";
+      }
+      function closeModal() {
+        modal.style.display = "none";
+      }
+
+      renderSoal();
+    </script>
+  </body>
+</html>

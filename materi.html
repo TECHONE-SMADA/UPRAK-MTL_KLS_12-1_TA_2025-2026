@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Materi Turunan</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body {
+    background-image: url("img/materi.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center 90%;
+    background-attachment: fixed;
+    overflow-x:hidden; /* cegah geser */
+}
+
+/* ===== HEADER ===== */
+header{
+    height:90px;
+    background:linear-gradient(90deg,#fbc29e,#ff6f00);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 60px;
+    color:white;
+    position:sticky;
+    top:0;
+    z-index:9999;
+    box-shadow:0 5px 20px rgba(0,0,0,0.2);
+}
+
+header img{
+    width:80px;
+}
+
+header p{
+    font-size:12px;
+    letter-spacing:2px;
+}
+
+/* ===== HERO ===== */
+.hero{
+    min-height:calc(100vh - 100px);
+    padding-top:140px;
+    padding-bottom:120px; /* supaya tidak ketutup navbar */
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+}
+
+.hero h1{
+    font-size:70px;
+    font-weight:800;
+    color:#ff6f00;
+    margin-bottom:100px;
+}
+
+/* ===== BUTTON AREA ===== */
+.menu-wrapper{
+    display:flex;
+    gap:120px;
+}
+
+.menu-btn{
+    width:380px;
+    height:160px;
+    background:linear-gradient(90deg,#EFC7AD,#ff6f00);
+    border-radius:50px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:42px;
+    font-weight:800;
+    color:white;
+    text-decoration:none;
+    transition:0.3s;
+    box-shadow:0 20px 40px rgba(0,0,0,0.2);
+}
+
+.menu-btn:hover{
+    transform:translateY(-10px) scale(1.05);
+}
+
+.menu-btn:active{
+    transform:scale(0.95);
+}
+
+/* ===== BOTTOM NAV ===== */
+.bottom-nav{
+    position:fixed;
+    bottom:25px;
+    left:50%;
+    transform:translateX(-50%);
+    background:linear-gradient(90deg,#EFC7AD,#ff6f00);
+    width:420px;
+    max-width:95%;
+    height:65px;
+    border-radius:40px;
+    display:flex;
+    align-items:center;
+    justify-content:space-around;
+    box-shadow:0 10px 25px rgba(0,0,0,0.2);
+    z-index:10;
+}
+
+.bottom-nav a{
+    text-decoration:none;
+    color:white;
+    font-size:14px;
+    padding:12px 20px;
+    border-radius:30px;
+    white-space:nowrap;
+}
+
+.bottom-nav .active{
+    background:linear-gradient(90deg,#ff8c42,#ff6f00);
+    font-weight:600;
+}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:1000px){
+
+    .menu-wrapper{
+        flex-direction:column;
+        gap:50px;
+        align-items:center;
+    }
+
+    .menu-btn{
+        width:90%;
+        font-size:34px;
+    }
+
+    .hero h1{
+        font-size:50px;
+        margin-bottom:60px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <img src="img/logo.png">
+    <p>DESIGNED BY TECHONE</p>
+</header>
+
+<section class="hero">
+
+    <h1>MATERI TURUNAN</h1>
+
+    <div class="menu-wrapper">
+        <a href="aljabar.html" class="menu-btn">ALJABAR</a>
+        <a href="awaltrigono.html" class="menu-btn">TRIGONOMETRI</a>
+    </div>
+
+</section>
+
+<div class="bottom-nav">
+    <a href="materi.html" class="active">Materi</a>
+    <a href="index.html">Halaman Utama</a>
+    <a href="latihan.html">Latsol</a>
+</div>
+
+</body>
+</html>
